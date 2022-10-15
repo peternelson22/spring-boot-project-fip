@@ -1,4 +1,7 @@
 package com.nelson.flexisaf.repository;
 
-public interface EmployeeUserRepository {
+import com.nelson.flexisaf.entity.EmployeeUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmployeeUserRepository extends JpaRepository<EmployeeUser, Long> {
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Login {
 
+    @Id
     @SequenceGenerator(
             name = "login_sequence",
             sequenceName = "login_seq",
@@ -28,7 +30,8 @@ public class Login {
 
     private String password;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, insertable = false)
     private EmployeeUser user;
 }

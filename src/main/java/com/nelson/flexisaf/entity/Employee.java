@@ -8,12 +8,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "employees")
 public class Employee{
 
     @Id
@@ -28,6 +32,7 @@ public class Employee{
     )
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String firstName;
 
@@ -36,9 +41,6 @@ public class Employee{
     @Email
     @Column(nullable = false)
     private String email;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dob;
 
     private String gender;
 
@@ -55,6 +57,13 @@ public class Employee{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dept_id")
     private Department department;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_projects",
+            joinColumns = { @JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id")}
+    )
+    private Set<Project> projects = new HashSet<>();
     
 
 

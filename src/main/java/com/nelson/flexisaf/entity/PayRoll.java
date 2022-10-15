@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class PayRoll {
 
+    @Id
     @SequenceGenerator(
             name = "payroll_sequence",
             sequenceName = "payroll_seq",
@@ -25,7 +26,7 @@ public class PayRoll {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "salary_id")
     private Salary salary;
 
     @ManyToOne(fetch = FetchType.EAGER)

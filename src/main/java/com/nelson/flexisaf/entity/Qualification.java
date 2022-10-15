@@ -1,12 +1,20 @@
 package com.nelson.flexisaf.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 public class Qualification {
 
+    @Id
     @SequenceGenerator(
             name = "qualification_sequence",
             sequenceName = "qualification_seq",
@@ -18,7 +26,9 @@ public class Qualification {
     )
     private Long id;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "qual_type", nullable = false)
+    private QualificationType qualificationType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateIn;
@@ -30,4 +40,8 @@ public class Qualification {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    public enum QualificationType{
+        DEGREE, HND, NCE, SSCE, OTHERS
+    }
 }

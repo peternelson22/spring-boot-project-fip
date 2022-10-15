@@ -1,16 +1,21 @@
 package com.nelson.flexisaf.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Leave {
 
+    @Id
     @SequenceGenerator(
             name = "leave_sequence",
             sequenceName = "leave_seq",
@@ -27,5 +32,5 @@ public class Leave {
 
     @Column(columnDefinition = "SMALLINT default 0")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean state;
+    private Boolean status;
 }

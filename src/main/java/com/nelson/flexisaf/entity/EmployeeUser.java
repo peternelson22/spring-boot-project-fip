@@ -1,16 +1,21 @@
 package com.nelson.flexisaf.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeUser {
 
+    @Id
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_seq",
@@ -31,7 +36,10 @@ public class EmployeeUser {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "login")
+    private Login login;
+
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

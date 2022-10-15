@@ -16,5 +16,7 @@ public interface EmployeeService {
 
     Employee getEmployeeById(Long id);
 
-    Employee getEmployeeByName(String name);
+    List<Employee> getEmployeeByNameIgnoreCase(String firstName);
+
+    List<Employee> getEmployeeByNameContaining(String name);
 }

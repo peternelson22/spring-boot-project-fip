@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Dependent {
 
+    @Id
     @SequenceGenerator(
             name = "dependent_sequence",
             sequenceName = "dependent_seq",

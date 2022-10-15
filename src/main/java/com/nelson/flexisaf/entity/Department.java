@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Department {
 
+    @Id
     @SequenceGenerator(
             name = "dept_sequence",
             sequenceName = "dept_sequence",
@@ -26,8 +28,9 @@ public class Department {
     private Long id;
 
     @NotBlank
+    @Column(nullable = false)
     private String deptName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    private List<Employee> employees;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Employee> employees = new ArrayList<>();
 }

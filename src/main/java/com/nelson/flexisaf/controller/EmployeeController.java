@@ -30,9 +30,14 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
+    @GetMapping("/employee/{firstname}")
+    public List<Employee> getEmployeeByNameIgnoreCase(@PathVariable("firstname") String firstName){
+        return employeeService.getEmployeeByNameIgnoreCase(firstName);
+    }
+
     @GetMapping("/employee/{name}")
-    public Employee getEmployeeByName(@PathVariable String name){
-        return employeeService.getEmployeeByName(name);
+    public List<Employee> getEmployeeByNameContaining(@PathVariable String name){
+        return employeeService.getEmployeeByNameContaining(name);
     }
 
     @PutMapping("/employee/{id}")
@@ -46,4 +51,6 @@ public class EmployeeController {
         return "Successfully deleted";
 
     }
+
+
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Contact {
 
+    @Id
     @SequenceGenerator(
             name = "contact_sequence",
             sequenceName = "contact_seq",
@@ -32,6 +34,7 @@ public class Contact {
 
     private String address;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;

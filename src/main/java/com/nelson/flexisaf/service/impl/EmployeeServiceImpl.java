@@ -32,9 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setEmail(employee.getEmail());
-        existingEmployee.setDepartment(employee.getDepartment());
-        existingEmployee.setSalary(employee.getSalary());
-        existingEmployee.setPosition(employee.getPosition());
 
         return employeeRepository.save(existingEmployee);
     }
@@ -50,8 +47,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByName(String name) {
-        return employeeRepository.findByFirstName(name);
+    public List<Employee> getEmployeeByNameIgnoreCase(String firstName) {
+        return employeeRepository.findByFirstNameIgnoreCase(firstName);
     }
+
+    @Override
+    public List<Employee> getEmployeeByNameContaining(String name) {
+        return employeeRepository.findByFirstNameContaining(name);
+    }
+
 
 }

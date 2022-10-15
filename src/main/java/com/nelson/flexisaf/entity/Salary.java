@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -34,6 +35,7 @@ public class Salary {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime dateTime;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     private Employee employee;
 }
