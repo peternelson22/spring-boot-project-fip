@@ -4,21 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class Employee{
 
     @Id
    @SequenceGenerator(
@@ -37,6 +33,7 @@ public class Employee {
 
     private String lastName;
 
+    @Email
     @Column(nullable = false)
     private String email;
 
@@ -48,15 +45,17 @@ public class Employee {
     @Transient
     private Integer age;
 
-    @Column(nullable = false)
-    private String employeePass;
-
-    @CreationTimestamp
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
     private LocalDate employedDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "dept_id")
+    private Department department;
+    
 
 
 }
