@@ -51,26 +51,22 @@ public class Employee{
     private String gender;
 
     @Column(name = "DOB")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @Transient
     private Integer age;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
     private LocalDate employedDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "dept_id")
     private Department department;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
-    private Contact contact;
 
 
     public Integer getAge() {

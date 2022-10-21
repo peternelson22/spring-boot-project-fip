@@ -40,5 +40,15 @@ public class Qualification {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    public enum QualificationType {
+
+        PHD,
+        DEGREE,
+        HND,
+        NCE,
+        SSCE,
+        OTHERS
+
+    }
 
 }

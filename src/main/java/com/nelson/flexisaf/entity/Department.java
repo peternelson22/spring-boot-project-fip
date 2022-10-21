@@ -33,7 +33,4 @@ public class Department {
     @Column(nullable = false)
     private String deptName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Employee> employees = new ArrayList<>();
-
 }

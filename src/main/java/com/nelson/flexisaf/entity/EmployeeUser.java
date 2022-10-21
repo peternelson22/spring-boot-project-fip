@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class EmployeeUser {
 
-    @Id 
+    @Id
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_seq",

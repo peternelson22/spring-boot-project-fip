@@ -52,5 +52,13 @@ public class Project {
     @JoinColumn(name = "dept_id")
     private Department department;
 
+    public enum ProjectStatus {
 
+        OPEN,
+        IN_PROGRESS,
+        RESUMED,
+        COMPLETED,
+        CLOSED
+
+    }
 }

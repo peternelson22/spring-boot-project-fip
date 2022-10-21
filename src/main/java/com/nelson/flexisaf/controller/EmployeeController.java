@@ -10,7 +10,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api")
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -20,7 +19,7 @@ public class EmployeeController {
         return employeeService.saveEmployee(employee);
     }
 
-    @GetMapping("/employee")
+    @GetMapping("/employees")
     public List<Employee> getEmployees(){
         return employeeService.getEmployees();
 
