@@ -38,13 +38,13 @@ public class Employee{
 
     @NotBlank
     @Column(nullable = false)
-    @NotEmpty(message = "first name must not be empty")
+    @NotEmpty(message = "firstname must not be empty")
     private String firstName;
 
-    @NotEmpty(message = "last name must not be empty")
+    @NotEmpty(message = "lastname must not be empty")
     private String lastName;
 
-    @Email
+    @Email(message = "Please enter a valid email address")
     @Column(nullable = false)
     private String email;
 
@@ -64,7 +64,7 @@ public class Employee{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "dept_id")
     private Department department;
 

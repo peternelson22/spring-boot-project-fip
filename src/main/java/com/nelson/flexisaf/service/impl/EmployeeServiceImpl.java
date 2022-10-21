@@ -17,21 +17,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee saveEmployee(Employee employee) {
+        
         return employeeRepository.save(employee);
     }
 
     @Override
-    public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
-    }
-
-    @Override
     public Employee updateEmployee(Long id, Employee employee) {
-        Employee existingEmployee = employeeRepository.findById(id).get();
+        Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() ->
+                new IllegalStateException("Employee with id " + id + " does not exist"));
 
         existingEmployee.setFirstName(employee.getFirstName());
         existingEmployee.setLastName(employee.getLastName());
         existingEmployee.setEmail(employee.getEmail());
+        existingEmployee.setDepartment(employee.getDepartment());
 
         return employeeRepository.save(existingEmployee);
     }
@@ -43,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.findById(id).get();
+        return employeeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND"));
     }
 
     @Override
@@ -54,6 +52,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeeByNameContaining(String name) {
         return employeeRepository.findByFirstNameContaining(name);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
 

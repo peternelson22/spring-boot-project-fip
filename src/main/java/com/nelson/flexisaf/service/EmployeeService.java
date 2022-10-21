@@ -8,8 +8,6 @@ public interface EmployeeService {
 
     Employee saveEmployee(Employee employee);
 
-    List<Employee> getEmployees();
-
     Employee updateEmployee(Long id, Employee employee);
 
     void deleteEmployee(Long id);
@@ -19,4 +17,6 @@ public interface EmployeeService {
     List<Employee> getEmployeeByNameIgnoreCase(String firstName);
 
     List<Employee> getEmployeeByNameContaining(String name);
+
+    List<Employee> getAllEmployees();
 }
