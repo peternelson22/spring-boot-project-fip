@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,4 +35,5 @@ public class Department {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Employee> employees = new ArrayList<>();
+
 }

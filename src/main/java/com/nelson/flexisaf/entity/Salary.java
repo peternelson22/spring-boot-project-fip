@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Salary {
 
     @Id
@@ -36,6 +38,7 @@ public class Salary {
     private LocalDateTime dateTime;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }

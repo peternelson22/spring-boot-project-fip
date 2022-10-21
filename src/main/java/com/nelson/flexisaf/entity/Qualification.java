@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,18 +31,14 @@ public class Qualification {
     @Column(name = "qual_type", nullable = false)
     private QualificationType qualificationType;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateIn;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dept_id")
-    private Department department;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public enum QualificationType{
-        DEGREE, HND, NCE, SSCE, OTHERS
-    }
+
 }

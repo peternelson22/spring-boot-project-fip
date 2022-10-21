@@ -1,6 +1,6 @@
 package com.nelson.flexisaf.entity;
 
-public class Roles {
+public class Role {
 
     private Long id;
     private String name;

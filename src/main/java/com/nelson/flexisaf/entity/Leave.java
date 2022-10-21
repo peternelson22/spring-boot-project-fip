@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Leave {
 
     @Id
@@ -28,7 +30,7 @@ public class Leave {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime date;
+    private LocalDateTime dateOfLeave;
 
     @Column(columnDefinition = "SMALLINT default 0")
     @Type(type = "org.hibernate.type.NumericBooleanType")

@@ -1,17 +1,22 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Table(name = "dependents")
 public class Dependent {
 
     @Id
@@ -28,8 +33,10 @@ public class Dependent {
 
     private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dob;
+    @Column(name = "DOB")
+    private LocalDate dateOfBirth;
 
     @Transient
     private Integer age;
@@ -41,4 +48,12 @@ public class Dependent {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
+    public Integer getAge() {
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 }

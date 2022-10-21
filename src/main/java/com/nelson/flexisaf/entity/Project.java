@@ -1,6 +1,8 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +16,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Table(name = "projects")
 public class Project {
 
     @Id
@@ -32,9 +36,11 @@ public class Project {
 
     private String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
 
@@ -46,10 +52,5 @@ public class Project {
     @JoinColumn(name = "dept_id")
     private Department department;
 
-    @ManyToMany(mappedBy = "projects", cascade = CascadeType.ALL)
-    private Set<Employee> employees = new HashSet<>();
 
-    public enum ProjectStatus{
-        OPEN, INPROGRESS, RESUMED, COMPLETED, CLOSED
-    }
 }

@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +20,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "employees")
+@Builder
+@Table(name = "employees", uniqueConstraints = @UniqueConstraint(name = "email_unique", columnNames = "email"))
 public class Employee{
 
     @Id
@@ -34,8 +38,10 @@ public class Employee{
 
     @NotBlank
     @Column(nullable = false)
+    @NotEmpty(message = "first name must not be empty")
     private String firstName;
 
+    @NotEmpty(message = "last name must not be empty")
     private String lastName;
 
     @Email
@@ -44,13 +50,18 @@ public class Employee{
 
     private String gender;
 
+    @Column(name = "DOB")
+    private LocalDate dateOfBirth;
+
     @Transient
     private Integer age;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
     private LocalDate employedDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
 
@@ -58,13 +69,15 @@ public class Employee{
     @JoinColumn(name = "dept_id")
     private Department department;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_projects",
-            joinColumns = { @JoinColumn(name = "employee_id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id")}
-    )
-    private Set<Project> projects = new HashSet<>();
-    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Contact contact;
 
 
+    public Integer getAge() {
+          return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+         this.age = age;
+    }
 }

@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,8 +10,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "contacts")
 public class Contact {
 
     @Id
@@ -32,10 +35,12 @@ public class Contact {
 
     private String nextOfKinMobile;
 
+    @NotNull
+    @Column(nullable = false)
     private String address;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
