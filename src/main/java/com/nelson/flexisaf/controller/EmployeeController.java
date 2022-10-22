@@ -38,8 +38,28 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{name}")
-    public List<Employee> getEmployeeByNameContaining(@PathVariable String name){
+    public List<Employee> getEmployeesByNameContaining(@PathVariable String name){
         return employeeService.getEmployeeByNameContaining(name);
+    }
+
+    @GetMapping("/employee")
+    public ResponseEntity<Employee> getEmployeeByEmail(@RequestParam String email){
+        return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
+    }
+
+    @GetMapping("/employee/fullname")
+    public String getFirstAndLastNameByEmail(@RequestParam String email){
+        return employeeService.getFirstAndLastNameByEmail(email);
+    }
+
+    @GetMapping("/employee/full")
+    public List<Employee> getEmployeeAndDepartmentByEmail(){
+        return employeeService.getEmployeeAndDepartment();
+    }
+
+    @GetMapping("employees/dept/{name}")
+    public List<Employee> getEmployeeByDepartmentName(@PathVariable String name){
+        return employeeService.getEmployeeByDepartmentName(name);
     }
 
     @PutMapping("/employee/{id}")
@@ -52,6 +72,7 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return "Successfully deleted";
     }
+
 
 
 }

@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee saveEmployee(Employee employee) {
-        
+
         return employeeRepository.save(employee);
     }
 
@@ -57,6 +57,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
+
+    @Override
+    public String getFirstAndLastNameByEmail(String email) {
+        return employeeRepository.getEmployeeFirstNameAndLastNameByEmail(email);
+    }
+
+    @Override
+    public List<Employee> getEmployeeAndDepartment() {
+        return employeeRepository.getEmployeeAndDepartment();
+    }
+
+    @Override
+    public List<Employee> getEmployeeByDepartmentName(String name) {
+        return employeeRepository.findByDepartmentNameIgnoreCase(name);
     }
 
 

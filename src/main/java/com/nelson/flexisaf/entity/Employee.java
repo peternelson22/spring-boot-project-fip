@@ -68,6 +68,14 @@ public class Employee{
     @JoinColumn(name = "dept_id")
     private Department department;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dependent_id")
+    private Dependent dependent;
+
 
     public Integer getAge() {
           return Period.between(this.dateOfBirth, LocalDate.now()).getYears();

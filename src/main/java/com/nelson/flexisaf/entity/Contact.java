@@ -35,13 +35,7 @@ public class Contact {
 
     private String nextOfKinMobile;
 
-    @NotNull
     @Column(nullable = false)
     private String address;
-
-    @NotNull
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
 
 }

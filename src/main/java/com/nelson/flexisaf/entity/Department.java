@@ -31,6 +31,6 @@ public class Department {
 
     @NotBlank
     @Column(nullable = false)
-    private String deptName;
+    private String name;
 
 }

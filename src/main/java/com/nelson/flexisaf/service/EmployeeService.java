@@ -19,4 +19,12 @@ public interface EmployeeService {
     List<Employee> getEmployeeByNameContaining(String name);
 
     List<Employee> getAllEmployees();
+
+    Employee getEmployeeByEmail(String email);
+
+    String getFirstAndLastNameByEmail(String email);
+
+    List<Employee> getEmployeeAndDepartment();
+
+    List<Employee> getEmployeeByDepartmentName(String name);
 }
