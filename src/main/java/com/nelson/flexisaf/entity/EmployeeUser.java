@@ -32,11 +32,11 @@ public class EmployeeUser {
     )
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "please enter your username")
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Email
+    @Email(message = "please enter a valid email")
     @NotBlank
     private String email;
 
@@ -44,6 +44,7 @@ public class EmployeeUser {
     private String password;
 
     @CreationTimestamp
+    @Column(nullable = false, updatable = false, insertable = false)
     private LocalDateTime createdAt;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")

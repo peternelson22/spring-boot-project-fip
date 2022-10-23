@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.entity;
 
+import com.nelson.flexisaf.entity.dto.ContactDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,5 +38,16 @@ public class Contact {
 
     @Column(nullable = false)
     private String address;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+//    public Contact(ContactDto contactDto){
+//        this.phoneMobile = contactDto.getPhoneMobile();
+//        this.phoneHome = contactDto.getPhoneHome();
+//        this.address = contactDto.getAddress();
+//        this.nextOfKinMobile = contactDto.getNextOfKinMobile();
+//    }
 
 }

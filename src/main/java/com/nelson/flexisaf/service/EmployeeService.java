@@ -1,24 +1,23 @@
 package com.nelson.flexisaf.service;
 
 import com.nelson.flexisaf.entity.Employee;
+import com.nelson.flexisaf.entity.dto.EmployeeDto;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    Employee saveEmployee(Employee employee);
+    Employee saveEmployee(EmployeeDto employeeDto);
 
     Employee updateEmployee(Long id, Employee employee);
 
     void deleteEmployee(Long id);
 
-    Employee getEmployeeById(Long id);
-
     List<Employee> getEmployeeByNameIgnoreCase(String firstName);
 
     List<Employee> getEmployeeByNameContaining(String name);
 
-    List<Employee> getAllEmployees();
+    List<Employee> getAllEmployees(int pageNumber, int pageSize);
 
     Employee getEmployeeByEmail(String email);
 
@@ -26,5 +25,7 @@ public interface EmployeeService {
 
     List<Employee> getEmployeeAndDepartment();
 
-    List<Employee> getEmployeeByDepartmentName(String name);
+    List<Employee> getEmployeeByDepartmentNameContaining(String name);
+
+    EmployeeDto getEmployeeById(Long id);
 }

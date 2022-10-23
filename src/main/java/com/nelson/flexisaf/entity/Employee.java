@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nelson.flexisaf.entity.dto.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,12 +38,11 @@ public class Employee{
     )
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "firstname must not be empty")
     @Column(nullable = false)
-    @NotEmpty(message = "firstname must not be empty")
     private String firstName;
 
-    @NotEmpty(message = "lastname must not be empty")
+    @NotBlank(message = "lastname must not be empty")
     private String lastName;
 
     @Email(message = "Please enter a valid email address")
@@ -59,22 +60,20 @@ public class Employee{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
-    private LocalDate employedDate;
+    private LocalDate employedDate = LocalDate.now();
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate sackedDate;
+    private LocalDate sackedDate = null;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "dept_id")
     private Department department;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_id")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employee")
     private Contact contact;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dependent_id")
-    private Dependent dependent;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private List<Dependent> dependents;
 
 
     public Integer getAge() {

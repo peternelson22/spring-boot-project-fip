@@ -1,7 +1,10 @@
 package com.nelson.flexisaf.service.impl;
 
 import com.nelson.flexisaf.entity.Contact;
+import com.nelson.flexisaf.entity.Employee;
+import com.nelson.flexisaf.entity.dto.ContactDto;
 import com.nelson.flexisaf.repository.ContactRepository;
+import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import java.util.List;
 public class ContactServiceImpl implements ContactService {
 
     private ContactRepository contactRepository;
+    private EmployeeRepository employeeRepository;
 
 
     @Override
@@ -30,6 +34,21 @@ public class ContactServiceImpl implements ContactService {
         existingContact.setNextOfKinMobile(contact.getNextOfKinMobile());
         existingContact.setAddress(contact.getAddress());
         return contactRepository.save(existingContact);
+    }
+
+    @Override
+    public void saveContact(Long id, ContactDto contactDto) {
+        Employee employee = employeeRepository.findById(id).get();
+
+        Contact contact = new Contact();
+        contact.setAddress(contactDto.getAddress());
+        contact.setPhoneHome(contactDto.getPhoneHome());
+        contact.setPhoneMobile(contactDto.getPhoneMobile());
+        contact.setNextOfKinMobile(contactDto.getNextOfKinMobile());
+        contact.setEmployee(employee);
+
+        contactRepository.save(contact);
+
     }
 
 

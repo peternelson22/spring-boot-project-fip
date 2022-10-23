@@ -1,13 +1,12 @@
 package com.nelson.flexisaf.entity;
 
+import com.nelson.flexisaf.entity.dto.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,4 +32,10 @@ public class Department {
     @Column(nullable = false)
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    private List<Employee> employees;
+
+    public Department(EmployeeDto employeeDto){
+        this.name = employeeDto.getDepartmentName();
+    }
 }

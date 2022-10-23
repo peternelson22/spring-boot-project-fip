@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.repository;
 
 import com.nelson.flexisaf.entity.Employee;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,7 +11,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFirstNameIgnoreCase(String firstName);
 
-    List<Employee> findByFirstNameContaining(String name);
+    List<Employee> findByFirstNameContaining(String name, Sort sort);
 
     Employee findByEmail(String email);
 
@@ -25,6 +26,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> getEmployeeAndDepartment();
 
     //Join query
-    List<Employee> findByDepartmentNameIgnoreCase(String name);
+    List<Employee> findByDepartmentNameContaining(String name);
 
 }

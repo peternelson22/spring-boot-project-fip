@@ -1,10 +1,12 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -28,9 +30,10 @@ public class Login {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     private String password;
 
-    @NotNull
+    @NotBlank
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, insertable = false)
     private EmployeeUser user;

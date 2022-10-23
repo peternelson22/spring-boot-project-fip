@@ -2,6 +2,7 @@ package com.nelson.flexisaf.controller;
 
 
 import com.nelson.flexisaf.entity.Employee;
+import com.nelson.flexisaf.entity.dto.EmployeeDto;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,17 +19,17 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping ("/employee/save")
-    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee){
-        return new ResponseEntity<>(employeeService.saveEmployee(employee), HttpStatus.CREATED);
+    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
+        return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/employees")
-    public ResponseEntity<List<Employee>> getAllEmployee(){
-        return ResponseEntity.ok(employeeService.getAllEmployees());
+    public ResponseEntity<List<Employee>> getAllEmployee(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+        return ResponseEntity.ok(employeeService.getAllEmployees(pageNumber, pageSize));
     }
 
-    @GetMapping("/employee/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id){
+    @GetMapping("/employee/id/{id}")
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id){
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
@@ -37,13 +38,13 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getEmployeeByNameIgnoreCase(firstName));
     }
 
-    @GetMapping("/employees/{name}")
+    @GetMapping("/employees/name/{name}")
     public List<Employee> getEmployeesByNameContaining(@PathVariable String name){
         return employeeService.getEmployeeByNameContaining(name);
     }
 
-    @GetMapping("/employee")
-    public ResponseEntity<Employee> getEmployeeByEmail(@RequestParam String email){
+    @GetMapping("/employee/email/{email}")
+    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email){
         return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
     }
 
@@ -53,20 +54,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/full")
-    public List<Employee> getEmployeeAndDepartmentByEmail(){
+    public List<Employee> getEmployeesAndDepartments(){
         return employeeService.getEmployeeAndDepartment();
     }
 
     @GetMapping("employees/dept/{name}")
     public List<Employee> getEmployeeByDepartmentName(@PathVariable String name){
-        return employeeService.getEmployeeByDepartmentName(name);
+        return employeeService.getEmployeeByDepartmentNameContaining(name);
     }
 
+    //TODO: use email to update
     @PutMapping("/employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.CREATED);
     }
 
+    //TODO: use email to delete
     @DeleteMapping("/employee/{id}")
     public String deleteEmployee(@PathVariable Long id){
         employeeService.deleteEmployee(id);
