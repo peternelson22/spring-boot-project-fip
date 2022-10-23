@@ -2,6 +2,7 @@ package com.nelson.flexisaf.service;
 
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.dto.EmployeeDto;
+import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees(int pageNumber, int pageSize);
 
-    Employee getEmployeeByEmail(String email);
+    EmployeeDto getEmployeeByEmail(String email);
 
     String getFirstAndLastNameByEmail(String email);
 
@@ -27,5 +28,5 @@ public interface EmployeeService {
 
     List<Employee> getEmployeeByDepartmentNameContaining(String name);
 
-    EmployeeDto getEmployeeById(Long id);
+    EmployeeProfileDto getEmployeeProfile(String email);
 }

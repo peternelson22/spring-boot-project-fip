@@ -41,4 +41,5 @@ public class Salary {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
 }

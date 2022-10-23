@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+
     List<Employee> findByFirstNameIgnoreCase(String firstName);
 
     List<Employee> findByFirstNameContaining(String name, Sort sort);

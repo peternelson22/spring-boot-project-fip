@@ -3,6 +3,7 @@ package com.nelson.flexisaf.controller;
 
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.dto.EmployeeDto;
+import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,13 +25,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public ResponseEntity<List<Employee>> getAllEmployee(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+    public ResponseEntity<List<Employee>> getAllEmployees(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         return ResponseEntity.ok(employeeService.getAllEmployees(pageNumber, pageSize));
     }
 
-    @GetMapping("/employee/id/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable Long id){
-        return ResponseEntity.ok(employeeService.getEmployeeById(id));
+    @GetMapping("/employee/email/{email}")
+    public ResponseEntity<EmployeeDto> getEmployeeByEmail( @PathVariable String email){
+        return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
+    }
+
+    @GetMapping("/profile/{email}")
+    public ResponseEntity<EmployeeProfileDto> getEmployeeProfile(@PathVariable String email){
+        return ResponseEntity.ok(employeeService.getEmployeeProfile(email));
     }
 
     @GetMapping("/employee/firstname/{firstname}")
@@ -43,10 +49,6 @@ public class EmployeeController {
         return employeeService.getEmployeeByNameContaining(name);
     }
 
-    @GetMapping("/employee/email/{email}")
-    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email){
-        return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
-    }
 
     @GetMapping("/employee/fullname")
     public String getFirstAndLastNameByEmail(@RequestParam String email){

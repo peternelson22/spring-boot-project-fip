@@ -3,6 +3,7 @@ package com.nelson.flexisaf.service.impl;
 import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.dto.EmployeeDto;
+import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
 import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.EmployeeService;
@@ -35,6 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setLastName(employeeDto.getLastname());
         employee.setEmail(employeeDto.getEmail());
         employee.setGender(employeeDto.getGender());
+        employee.setDateOfBirth(employeeDto.getDateOfBirth());
 
         return employeeRepository.save(employee);
     }
@@ -77,10 +79,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAll(pages).getContent();
     }
 
-    @Override
-    public Employee getEmployeeByEmail(String email) {
-        return employeeRepository.findByEmail(email);
-    }
 
     @Override
     public String getFirstAndLastNameByEmail(String email) {
@@ -98,13 +96,33 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto getEmployeeById(Long id) {
+    public EmployeeProfileDto getEmployeeProfile(String email) {
+        EmployeeProfileDto employeeProfileDto = new EmployeeProfileDto();
+
+        Employee employee = employeeRepository.findByEmail(email);
+        employeeProfileDto.setAddress(employee.getContact().getAddress());
+        employeeProfileDto.setGender(employee.getGender());
+        employeeProfileDto.setEmail(employee.getEmail());
+        employeeProfileDto.setPhoneMobile(employee.getContact().getPhoneMobile());
+        employeeProfileDto.setFirstName(employee.getFirstName());
+        employeeProfileDto.setLastName(employee.getLastName());
+        employeeProfileDto.setEmployedDate(employee.getEmployedDate());
+        employeeProfileDto.setDepartment(employee.getDepartment().getName());
+
+        return employeeProfileDto;
+    }
+
+    @Override
+    public EmployeeDto getEmployeeByEmail(String email) {
         EmployeeDto employeeDto = new EmployeeDto();
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeRepository.findByEmail(email);
 
         employeeDto.setFirstname(employee.getFirstName());
         employeeDto.setLastname(employee.getLastName());
         employeeDto.setDepartmentName(employee.getDepartment().getName());
+        employeeDto.setGender(employee.getGender());
+        employeeDto.setEmail(employee.getEmail());
+        employeeDto.setDateOfBirth(employee.getDateOfBirth());
 
         return employeeDto;
     }

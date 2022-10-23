@@ -33,6 +33,8 @@ public class Dependent {
 
     private String name;
 
+    private String phoneMobile;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "DOB")
@@ -41,7 +43,7 @@ public class Dependent {
     @Transient
     private Integer age;
 
-    private String sex;
+    private String gender;
 
     private String relationship;
 

@@ -35,7 +35,4 @@ public class Department {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<Employee> employees;
 
-    public Department(EmployeeDto employeeDto){
-        this.name = employeeDto.getDepartmentName();
-    }
 }
