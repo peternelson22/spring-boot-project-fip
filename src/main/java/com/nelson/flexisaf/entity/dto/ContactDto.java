@@ -9,6 +9,8 @@ public class ContactDto {
     private String phoneHome;
     private String address;
     private String nextOfKinMobile;
+    private String name;
+    private String email;
     private Long employeeId;
 
 }

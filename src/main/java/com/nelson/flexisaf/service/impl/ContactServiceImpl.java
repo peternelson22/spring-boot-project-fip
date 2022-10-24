@@ -46,5 +46,23 @@ public class ContactServiceImpl implements ContactService {
 
     }
 
+    @Override
+    public ContactDto getEmployeeContactDetails(String email) {
+        Employee employee = employeeRepository.findByEmail(email);
+        if (employee == null)
+            throw new IllegalStateException("No employee found with email " + email);
+
+        ContactDto contactDto = new ContactDto();
+        contactDto.setName(employee.getFirstName() + " " + employee.getLastName());
+        contactDto.setAddress(employee.getContact().getAddress());
+        contactDto.setPhoneMobile(employee.getContact().getPhoneMobile());
+        contactDto.setPhoneHome(employee.getContact().getPhoneHome());
+        contactDto.setNextOfKinMobile(employee.getContact().getNextOfKinMobile());
+        contactDto.setEmail(employee.getEmail());
+        contactDto.setEmployeeId(employee.getId());
+
+        return contactDto;
+    }
+
 
 }

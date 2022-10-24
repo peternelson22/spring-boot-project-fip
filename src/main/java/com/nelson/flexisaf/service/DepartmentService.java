@@ -8,4 +8,6 @@ import java.util.List;
 public interface DepartmentService {
 
     void assignDepartment(DepartmentDto departmentDto, Long id);
+
+    void updateDepartment(Long id, DepartmentDto departmentDto) throws Exception;
 }

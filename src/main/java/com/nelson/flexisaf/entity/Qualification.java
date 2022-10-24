@@ -36,7 +36,7 @@ public class Qualification {
     private LocalDate dateIn;
 
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

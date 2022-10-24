@@ -8,8 +8,10 @@ import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +26,21 @@ public class DepartmentServiceImpl implements DepartmentService {
         Employee employee = employeeRepository.findById(id).orElseThrow(IllegalAccessError::new);
 
         Department department = new Department();
+        department.setName(departmentDto.getName());
+        employee.setDepartment(department);
+
+        departmentRepository.save(department);
+    }
+
+    @Override @Transactional
+    public void updateDepartment(Long id, DepartmentDto departmentDto) throws Exception {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+        Employee employee = new Employee();
+
+        if (!existingEmployee.isPresent()){
+            throw new Exception("NOT FOUND");
+        }
+        Department department = departmentRepository.findById(id).get();
         department.setName(departmentDto.getName());
         employee.setDepartment(department);
 

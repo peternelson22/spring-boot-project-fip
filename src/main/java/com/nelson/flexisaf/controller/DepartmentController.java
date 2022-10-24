@@ -22,4 +22,10 @@ public class DepartmentController {
         departmentService.assignDepartment(departmentDto, id);
         return new ResponseEntity<>("Success", HttpStatus.ACCEPTED);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) throws Exception {
+        departmentService.updateDepartment(id, departmentDto);
+        return new ResponseEntity<>("Done", HttpStatus.ACCEPTED);
+    }
 }

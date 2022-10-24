@@ -16,8 +16,8 @@ public class DependentController {
     private DependentService dependentService;
 
     @PostMapping("/save/{id}")
-    public ResponseEntity<HttpStatus> saveDependent(@PathVariable Long id, @RequestBody DependentDto dependentDto){
+    public ResponseEntity<String> saveDependent(@PathVariable Long id, @RequestBody DependentDto dependentDto){
             dependentService.saveDependent(id, dependentDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 }

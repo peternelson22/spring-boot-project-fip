@@ -1,6 +1,5 @@
 package com.nelson.flexisaf.controller;
 
-
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.dto.EmployeeDto;
 import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
@@ -58,13 +57,11 @@ public class EmployeeController {
         return employeeService.getEmployeeByDepartmentNameContaining(name);
     }
 
-    //TODO: use email to update
     @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.CREATED);
     }
 
-    //TODO: use email to delete
     @DeleteMapping("/{id}")
     public String deleteEmployee(@PathVariable Long id){
         employeeService.deleteEmployee(id);

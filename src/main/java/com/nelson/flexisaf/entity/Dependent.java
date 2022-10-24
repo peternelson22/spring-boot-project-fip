@@ -47,7 +47,7 @@ public class Dependent {
 
     private String relationship;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

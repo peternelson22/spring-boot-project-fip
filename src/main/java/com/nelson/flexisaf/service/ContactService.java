@@ -11,4 +11,6 @@ public interface ContactService {
     Contact updateContactInfo(Long id, Contact contact);
 
     void saveContact(Long id, ContactDto contactDto);
+
+    ContactDto getEmployeeContactDetails(String email);
 }
