@@ -15,64 +15,57 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private EmployeeService employeeService;
 
-    @PostMapping ("/employee/save")
+    @PostMapping ("/save")
     public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
         return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/")
     public ResponseEntity<List<Employee>> getAllEmployees(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         return ResponseEntity.ok(employeeService.getAllEmployees(pageNumber, pageSize));
     }
 
-    @GetMapping("/employee/email/{email}")
-    public ResponseEntity<EmployeeDto> getEmployeeByEmail( @PathVariable String email){
-        return ResponseEntity.ok(employeeService.getEmployeeByEmail(email));
-    }
 
     @GetMapping("/profile/{email}")
     public ResponseEntity<EmployeeProfileDto> getEmployeeProfile(@PathVariable String email){
         return ResponseEntity.ok(employeeService.getEmployeeProfile(email));
     }
 
-    @GetMapping("/employee/firstname/{firstname}")
+    @GetMapping("/firstname/{firstname}")
     public ResponseEntity<List<Employee>> getEmployeeByNameIgnoreCase(@PathVariable("firstname") String firstName){
         return ResponseEntity.ok(employeeService.getEmployeeByNameIgnoreCase(firstName));
     }
 
-    @GetMapping("/employees/name/{name}")
+    @GetMapping("/name/{name}")
     public List<Employee> getEmployeesByNameContaining(@PathVariable String name){
         return employeeService.getEmployeeByNameContaining(name);
     }
 
 
-    @GetMapping("/employee/fullname")
+    @GetMapping("/fullname")
     public String getFirstAndLastNameByEmail(@RequestParam String email){
         return employeeService.getFirstAndLastNameByEmail(email);
     }
 
-    @GetMapping("/employee/full")
-    public List<Employee> getEmployeesAndDepartments(){
-        return employeeService.getEmployeeAndDepartment();
-    }
 
-    @GetMapping("employees/dept/{name}")
+    @GetMapping("/dept/{name}")
     public List<Employee> getEmployeeByDepartmentName(@PathVariable String name){
         return employeeService.getEmployeeByDepartmentNameContaining(name);
     }
 
     //TODO: use email to update
-    @PutMapping("/employee/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.CREATED);
     }
 
     //TODO: use email to delete
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     public String deleteEmployee(@PathVariable Long id){
         employeeService.deleteEmployee(id);
         return "Successfully deleted";

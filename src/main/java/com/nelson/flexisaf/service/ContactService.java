@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface ContactService {
 
-    List<Contact> getContact();
-
     Contact updateContactInfo(Long id, Contact contact);
 
     void saveContact(Long id, ContactDto contactDto);

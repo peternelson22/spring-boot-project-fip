@@ -22,11 +22,6 @@ public class ContactServiceImpl implements ContactService {
 
 
     @Override
-    public List<Contact> getContact() {
-        return contactRepository.findAll();
-    }
-
-    @Override
     public Contact updateContactInfo(Long id, Contact contact) {
         Contact existingContact = contactRepository.findById(id).orElseThrow(() -> new IllegalStateException("Not found"));
         existingContact.setPhoneMobile(contact.getPhoneMobile());

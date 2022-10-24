@@ -17,9 +17,4 @@ public class EmployeeDto {
     private String departmentName;
 
 
-    /*private String address;
-    private String phoneMobile;
-    private String dependentName;
-    private String nextOfKinMobile;
-*/
 }

@@ -43,11 +43,6 @@ public class Contact {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-//    public Contact(ContactDto contactDto){
-//        this.phoneMobile = contactDto.getPhoneMobile();
-//        this.phoneHome = contactDto.getPhoneHome();
-//        this.address = contactDto.getAddress();
-//        this.nextOfKinMobile = contactDto.getNextOfKinMobile();
-//    }
+
 
 }

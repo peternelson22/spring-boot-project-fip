@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee saveEmployee(EmployeeDto employeeDto) {
-        Department dept = new Department();
-        dept.setName(employeeDto.getDepartmentName());
-        dept = departmentRepository.save(dept);
 
         Employee employee = new Employee();
-        employee.setDepartment(dept);
         employee.setFirstName(employeeDto.getFirstname());
         employee.setLastName(employeeDto.getLastname());
         employee.setEmail(employeeDto.getEmail());
         employee.setGender(employeeDto.getGender());
         employee.setDateOfBirth(employeeDto.getDateOfBirth());
+        employee.setEmployedDate(LocalDate.now());
+        employee.setSackedDate(null);
 
         return employeeRepository.save(employee);
     }
@@ -85,10 +84,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.getEmployeeFirstNameAndLastNameByEmail(email);
     }
 
-    @Override
-    public List<Employee> getEmployeeAndDepartment() {
-        return employeeRepository.getEmployeeAndDepartment();
-    }
 
     @Override
     public List<Employee> getEmployeeByDepartmentNameContaining(String name) {
@@ -107,12 +102,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeProfileDto.setFirstName(employee.getFirstName());
         employeeProfileDto.setLastName(employee.getLastName());
         employeeProfileDto.setEmployedDate(employee.getEmployedDate());
-        employeeProfileDto.setDepartment(employee.getDepartment().getName());
+        employeeProfileDto.setDepartment(employee.getDepartment().getName().name());
+        employeeProfileDto.setSalaryAmount(employee.getSalary().getAmount());
 
         return employeeProfileDto;
     }
 
-    @Override
+    /*@Override
     public EmployeeDto getEmployeeByEmail(String email) {
         EmployeeDto employeeDto = new EmployeeDto();
         Employee employee = employeeRepository.findByEmail(email);
@@ -126,6 +122,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employeeDto;
     }
-
+*/
 
 }

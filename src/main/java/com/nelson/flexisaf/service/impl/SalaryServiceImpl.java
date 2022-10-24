@@ -9,6 +9,8 @@ import com.nelson.flexisaf.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @AllArgsConstructor
 public class SalaryServiceImpl implements SalaryService {
@@ -19,16 +21,16 @@ public class SalaryServiceImpl implements SalaryService {
 
 
     @Override
-    public void saveEmployeeSalary(String email, SalaryDto salaryDto) {
-        Employee employee = employeeRepository.findByEmail(email);
+    public void saveEmployeeSalary(Long id, SalaryDto salaryDto) {
+        Employee employee = employeeRepository.findById(id).get();
 
         if (employee == null){
-            throw new IllegalStateException("Employee with " + email + "does not exit");
+            throw new IllegalStateException("Employee with " + id + " does not exit");
         }
         Salary salary = new Salary();
         salary.setAmount(salaryDto.getAmount());
         salary.setBonus(salaryDto.getBonus());
-        salary.setDateTime(salaryDto.getDate());
+        salary.setDateTime(LocalDateTime.now());
         salary.setEmployee(employee);
 
         salaryRepository.save(salary);

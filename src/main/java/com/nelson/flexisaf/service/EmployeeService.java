@@ -20,11 +20,7 @@ public interface EmployeeService {
 
     List<Employee> getAllEmployees(int pageNumber, int pageSize);
 
-    EmployeeDto getEmployeeByEmail(String email);
-
     String getFirstAndLastNameByEmail(String email);
-
-    List<Employee> getEmployeeAndDepartment();
 
     List<Employee> getEmployeeByDepartmentNameContaining(String name);
 

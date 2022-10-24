@@ -47,7 +47,7 @@ public class Dependent {
 
     private String relationship;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

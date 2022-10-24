@@ -60,10 +60,10 @@ public class Employee{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
-    private LocalDate employedDate = LocalDate.now();
+    private LocalDate employedDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate sackedDate = null;
+    private LocalDate sackedDate;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "dept_id")
@@ -72,11 +72,15 @@ public class Employee{
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employee")
     private Contact contact;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
-    private List<Dependent> dependents;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private Dependent dependents;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private Salary salary;
 
 
-    public Integer getAge() {
+
+ public Integer getAge() {
           return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
     }
 

@@ -28,11 +28,18 @@ public class Department {
     )
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private DEPARTMENT name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
     private List<Employee> employees;
 
+
+
+    public enum DEPARTMENT{
+        BACKEND,
+        FRONTEND,
+        DESIGN
+    }
 }

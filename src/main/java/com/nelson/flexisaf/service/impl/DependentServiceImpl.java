@@ -24,9 +24,9 @@ public class DependentServiceImpl implements DependentService {
         Dependent dependent = new Dependent();
         dependent.setName(dependentDto.getName());
         dependent.setGender(dependentDto.getGender());
-        dependent.setDateOfBirth(dependent.getDateOfBirth());
-        dependent.setPhoneMobile(dependent.getPhoneMobile());
-        dependent.setRelationship(dependent.getRelationship());
+        dependent.setDateOfBirth(dependentDto.getDateOfBirth());
+        dependent.setPhoneMobile(dependentDto.getPhoneMobile());
+        dependent.setRelationship(dependentDto.getRelationship());
         dependent.setEmployee(employee);
 
         dependentRepository.save(dependent);

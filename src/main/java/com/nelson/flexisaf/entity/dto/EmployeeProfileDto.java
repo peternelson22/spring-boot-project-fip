@@ -2,6 +2,7 @@ package com.nelson.flexisaf.entity.dto;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -15,4 +16,5 @@ public class EmployeeProfileDto {
     private String department;
     private String phoneMobile;
     private LocalDate employedDate;
+    private BigDecimal salaryAmount;
 }

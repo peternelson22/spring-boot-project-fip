@@ -16,4 +16,6 @@ public class SalaryDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime date;
+
+    private Long employeeId;
 }

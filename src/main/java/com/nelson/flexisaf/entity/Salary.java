@@ -37,7 +37,6 @@ public class Salary {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime dateTime;
 
-    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
     private Employee employee;
