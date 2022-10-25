@@ -1,6 +1,6 @@
 package com.nelson.flexisaf.controller;
 
-import com.nelson.flexisaf.entity.dto.SalaryDto;
+import com.nelson.flexisaf.dto.SalaryDto;
 import com.nelson.flexisaf.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

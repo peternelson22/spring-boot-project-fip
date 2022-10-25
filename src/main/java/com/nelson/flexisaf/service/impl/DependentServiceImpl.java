@@ -2,7 +2,7 @@ package com.nelson.flexisaf.service.impl;
 
 import com.nelson.flexisaf.entity.Dependent;
 import com.nelson.flexisaf.entity.Employee;
-import com.nelson.flexisaf.entity.dto.DependentDto;
+import com.nelson.flexisaf.dto.DependentDto;
 import com.nelson.flexisaf.repository.DependentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.DependentService;

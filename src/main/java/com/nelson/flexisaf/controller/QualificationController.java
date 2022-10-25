@@ -1,7 +1,6 @@
 package com.nelson.flexisaf.controller;
 
-import com.nelson.flexisaf.entity.Qualification;
-import com.nelson.flexisaf.entity.dto.QualificationDto;
+import com.nelson.flexisaf.dto.QualificationDto;
 import com.nelson.flexisaf.service.QualificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

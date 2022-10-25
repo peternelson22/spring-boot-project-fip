@@ -1,7 +1,6 @@
 package com.nelson.flexisaf.service;
 
-import com.nelson.flexisaf.entity.Dependent;
-import com.nelson.flexisaf.entity.dto.DependentDto;
+import com.nelson.flexisaf.dto.DependentDto;
 
 public interface DependentService {
 

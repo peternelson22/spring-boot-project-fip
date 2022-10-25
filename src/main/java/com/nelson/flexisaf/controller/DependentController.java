@@ -1,7 +1,6 @@
 package com.nelson.flexisaf.controller;
 
-import com.nelson.flexisaf.entity.Dependent;
-import com.nelson.flexisaf.entity.dto.DependentDto;
+import com.nelson.flexisaf.dto.DependentDto;
 import com.nelson.flexisaf.service.DependentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

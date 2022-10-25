@@ -1,8 +1,8 @@
 package com.nelson.flexisaf.service;
 
 import com.nelson.flexisaf.entity.Employee;
-import com.nelson.flexisaf.entity.dto.EmployeeDto;
-import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
+import com.nelson.flexisaf.dto.EmployeeDto;
+import com.nelson.flexisaf.dto.EmployeeProfileDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.nelson.flexisaf.entity.dto;
+package com.nelson.flexisaf.dto;
 
 import com.nelson.flexisaf.entity.Qualification;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;
@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class EmployeeProfileDto {
@@ -19,4 +20,5 @@ public class EmployeeProfileDto {
     private String phoneMobile;
     private LocalDate employedDate;
     private BigDecimal salaryAmount;
+    private List<QualificationType> qualificationTypes;
 }

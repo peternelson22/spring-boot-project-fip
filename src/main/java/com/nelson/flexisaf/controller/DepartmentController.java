@@ -1,14 +1,12 @@
 package com.nelson.flexisaf.controller;
 
-import com.nelson.flexisaf.entity.Department;
-import com.nelson.flexisaf.entity.dto.DepartmentDto;
+import com.nelson.flexisaf.dto.DepartmentDto;
+import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.service.DepartmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -24,7 +22,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) throws Exception {
+    public ResponseEntity<String> updateDepartment(@PathVariable Long id, @RequestBody DepartmentDto departmentDto) throws ResourceNotFoundException {
         departmentService.updateDepartment(id, departmentDto);
         return new ResponseEntity<>("Done", HttpStatus.ACCEPTED);
     }

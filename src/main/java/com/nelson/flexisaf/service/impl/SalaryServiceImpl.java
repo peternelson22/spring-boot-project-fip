@@ -2,7 +2,7 @@ package com.nelson.flexisaf.service.impl;
 
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.Salary;
-import com.nelson.flexisaf.entity.dto.SalaryDto;
+import com.nelson.flexisaf.dto.SalaryDto;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.repository.SalaryRepository;
 import com.nelson.flexisaf.service.SalaryService;

@@ -1,4 +1,4 @@
-package com.nelson.flexisaf.entity.dto;
+package com.nelson.flexisaf.dto;
 
 import com.nelson.flexisaf.entity.Qualification;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;

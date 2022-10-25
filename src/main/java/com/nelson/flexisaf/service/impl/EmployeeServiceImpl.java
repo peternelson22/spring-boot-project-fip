@@ -1,10 +1,8 @@
 package com.nelson.flexisaf.service.impl;
 
-import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Employee;
-import com.nelson.flexisaf.entity.Qualification;
-import com.nelson.flexisaf.entity.dto.EmployeeDto;
-import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
+import com.nelson.flexisaf.dto.EmployeeDto;
+import com.nelson.flexisaf.dto.EmployeeProfileDto;
 import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.EmployeeService;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service

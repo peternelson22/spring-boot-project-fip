@@ -1,14 +1,11 @@
 package com.nelson.flexisaf.entity;
 
-import com.nelson.flexisaf.entity.dto.EmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data

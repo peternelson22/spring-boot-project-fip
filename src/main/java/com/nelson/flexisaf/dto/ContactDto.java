@@ -1,4 +1,4 @@
-package com.nelson.flexisaf.entity.dto;
+package com.nelson.flexisaf.dto;
 
 import lombok.Data;
 

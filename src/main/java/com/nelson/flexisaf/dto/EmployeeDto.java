@@ -1,4 +1,4 @@
-package com.nelson.flexisaf.entity.dto;
+package com.nelson.flexisaf.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

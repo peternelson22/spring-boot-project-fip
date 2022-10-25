@@ -1,7 +1,6 @@
 package com.nelson.flexisaf.service;
 
-import com.nelson.flexisaf.entity.Qualification;
-import com.nelson.flexisaf.entity.dto.QualificationDto;
+import com.nelson.flexisaf.dto.QualificationDto;
 
 public interface QualificationService {
 

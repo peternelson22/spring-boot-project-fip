@@ -1,8 +1,8 @@
 package com.nelson.flexisaf.controller;
 
 import com.nelson.flexisaf.entity.Employee;
-import com.nelson.flexisaf.entity.dto.EmployeeDto;
-import com.nelson.flexisaf.entity.dto.EmployeeProfileDto;
+import com.nelson.flexisaf.dto.EmployeeDto;
+import com.nelson.flexisaf.dto.EmployeeProfileDto;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

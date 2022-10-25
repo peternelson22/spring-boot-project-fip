@@ -2,14 +2,12 @@ package com.nelson.flexisaf.service.impl;
 
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.Qualification;
-import com.nelson.flexisaf.entity.dto.QualificationDto;
+import com.nelson.flexisaf.dto.QualificationDto;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.repository.QualificationRepository;
 import com.nelson.flexisaf.service.QualificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @AllArgsConstructor
