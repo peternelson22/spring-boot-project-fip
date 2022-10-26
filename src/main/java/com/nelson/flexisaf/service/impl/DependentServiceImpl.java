@@ -10,6 +10,7 @@ import com.nelson.flexisaf.service.DependentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,21 +53,25 @@ public class DependentServiceImpl implements DependentService {
     }
 
     @Override
-    public DependentDto getEmployeeDependentDetails(String email) {
-        Optional<Employee> employee = employeeRepository.findByEmail(email);
+    public List<DependentDto> getEmployeeDependentDetails(String email) {
+        List<DependentDto> dependentDto = new ArrayList<>();
+        Employee employee = employeeRepository.findByEmail(email);
 
-        if (!employee.isPresent())
+        if (employee == null)
             throw new ResourceNotFoundException("No employee found with email " + email);
 
-        Dependent dependent = new Dependent();
-        DependentDto dependentDto = DependentDto.builder()
-                .name(dependent.getName())
-                .dateOfBirth(dependent.getDateOfBirth())
-                .gender(dependent.getGender())
-                .relationship(dependent.getRelationship())
-                .phoneMobile(dependent.getPhoneMobile())
-                .employeeName(dependent.getEmployee().getFirstName() + " " + dependent.getEmployee().getLastName())
-                .build();
+        List<Dependent> dependent = dependentRepository.findAll();
+        dependent.stream().forEach(d -> {
+            DependentDto dto = DependentDto.builder()
+                    .employeeName(d.getEmployee().getFirstName() + " " + d.getEmployee().getLastName())
+                    .name(d.getName())
+                    .gender(d.getGender())
+                    .dateOfBirth(d.getDateOfBirth())
+                    .phoneMobile(d.getPhoneMobile())
+                    .relationship(d.getRelationship())
+                    .build();
+            dependentDto.add(dto);
+        });
 
         return dependentDto;
     }

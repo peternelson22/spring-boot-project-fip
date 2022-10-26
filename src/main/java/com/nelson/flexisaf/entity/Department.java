@@ -31,9 +31,12 @@ public class Department {
     @Enumerated(EnumType.STRING)
     private DepartmentType name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Employee> employees;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Project> projects;
 
 
     public enum DepartmentType {

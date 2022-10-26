@@ -49,11 +49,6 @@ public class EmployeeController {
     }
 
 
-    @GetMapping("/dept/{name}")
-    public List<Employee> getEmployeeByDepartmentName(@PathVariable String name){
-        return employeeService.getEmployeeByDepartmentNameContaining(name);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<String> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
         employeeService.updateEmployee(id, employeeDto);

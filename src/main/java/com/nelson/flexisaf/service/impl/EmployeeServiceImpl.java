@@ -28,8 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void saveEmployee(EmployeeDto employeeDto) {
-        Optional<Employee> existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
-        if (existingEmployee.isPresent()) {
+        Employee existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
+        if (existingEmployee != null) {
             log.info("Trying to register with an existing email");
             throw new GenericApiException("Email taken, please enter another email address");
         }
@@ -51,6 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> existingEmployee = employeeRepository.findById(id);
             if (!existingEmployee.isPresent())
                 throw new ResourceNotFoundException("Employee with id " + id + " does not exist");
+
         Employee employee = Employee.builder()
                 .firstName(employeeDto.getFirstname())
                 .lastName(employeeDto.getLastname())
@@ -101,29 +102,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public List<Employee> getEmployeeByDepartmentNameContaining(String name) {
-        return employeeRepository.findByDepartmentNameContaining(name);
-    }
-
-    @Override
     public EmployeeProfileDto getEmployeeProfile(String email) {
-        Optional<Employee> e = employeeRepository.findByEmail(email);
-        if (!e.isPresent())
-            throw new ResourceNotFoundException("Employee with email " + email + " is not available");
+        Employee employee = employeeRepository.findByEmail(email);
+        if (employee == null)
+            throw new ResourceNotFoundException();
 
-        Employee employee = new Employee();
-        EmployeeProfileDto employeeProfileDto = EmployeeProfileDto.builder()
-                .firstName(employee.getFirstName())
-                .lastName(employee.getLastName())
-                .gender(employee.getGender())
-                .address(employee.getContact().getAddress())
-                .departmentType(employee.getDepartment().getName())
-                .salaryAmount(employee.getSalary().getAmount())
-                .phoneMobile(employee.getContact().getPhoneMobile())
-                .employedDate(employee.getEmployedDate())
-                .build();
-
-        return employeeProfileDto;
+        EmployeeProfileDto profileDto = new EmployeeProfileDto();
+        profileDto.setEmail(employee.getEmail());
+        profileDto.setAddress(employee.getContact().getAddress());
+        profileDto.setFirstName(employee.getFirstName());
+        profileDto.setLastName(employee.getLastName());
+        profileDto.setPhoneMobile(employee.getContact().getPhoneMobile());
+        profileDto.setSalaryAmount(employee.getSalary().getAmount());
+        profileDto.setEmployedDate(employee.getEmployedDate());
+        profileDto.setDepartmentType(employee.getDepartment().getName());
+        profileDto.setGender(employee.getGender());
+        return profileDto;
     }
 
 }

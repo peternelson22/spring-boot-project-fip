@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/dependent")
@@ -31,7 +33,7 @@ public class DependentController {
     }
 
     @GetMapping("/details/{email}")
-    public ResponseEntity<DependentDto> getEmployeeDependentDetails(@PathVariable String email){
+    public ResponseEntity<List<DependentDto>> getEmployeeDependentDetails(@PathVariable String email){
         return ResponseEntity.ok(dependentService.getEmployeeDependentDetails(email));
     }
 

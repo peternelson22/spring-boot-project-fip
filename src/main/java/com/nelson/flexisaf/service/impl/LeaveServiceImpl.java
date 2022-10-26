@@ -44,9 +44,9 @@ public class LeaveServiceImpl implements LeaveService {
     @Override
     public List<LeaveDto> getEmployeeLeaveDetails(String email) {
         List<LeaveDto> list = new ArrayList<>();
-        Optional<Employee> employee = employeeRepository.findByEmail(email);
+        Employee employee = employeeRepository.findByEmail(email);
 
-        if (!employee.isPresent()) {
+        if (employee == null) {
             throw new ResourceNotFoundException("Employee not found");
         }
         List<Leave> leave = leaveRepository.findAll();

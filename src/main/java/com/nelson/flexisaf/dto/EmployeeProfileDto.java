@@ -2,6 +2,7 @@ package com.nelson.flexisaf.dto;
 
 import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Department.DepartmentType;
+import com.nelson.flexisaf.entity.Project;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

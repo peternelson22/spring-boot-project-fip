@@ -23,8 +23,8 @@ public class ContactController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateContact(@PathVariable Long id, @RequestBody Contact contact){
-        contactService.updateContactInfo(id, contact);
+    public ResponseEntity<String> updateContact(@PathVariable Long id, @RequestBody ContactDto contactDto){
+        contactService.updateContactInfo(id, contactDto);
         return new ResponseEntity<>("Done", HttpStatus.CREATED);
     }
 

@@ -1,11 +1,14 @@
 package com.nelson.flexisaf.controller;
 
+import com.nelson.flexisaf.dto.PayRollDto;
 import com.nelson.flexisaf.dto.SalaryDto;
 import com.nelson.flexisaf.service.SalaryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -19,4 +22,5 @@ public class SalaryController {
         salaryService.saveEmployeeSalary(id, salaryDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }

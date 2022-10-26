@@ -1,4 +1,8 @@
 package com.nelson.flexisaf.repository;
 
-public interface ProjectRepository {
+import com.nelson.flexisaf.entity.Project;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProjectRepository extends JpaRepository<Project, Long> {
+
 }

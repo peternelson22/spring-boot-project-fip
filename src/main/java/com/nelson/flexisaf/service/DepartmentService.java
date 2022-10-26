@@ -10,5 +10,4 @@ public interface DepartmentService {
 
     void updateDepartment(Long id, DepartmentDto departmentDto) throws ResourceNotFoundException;
 
-    void deleteEmployeeDepartment(Long id);
 }

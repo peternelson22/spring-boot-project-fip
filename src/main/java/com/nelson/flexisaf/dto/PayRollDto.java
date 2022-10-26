@@ -5,18 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DependentDto {
+@Builder
+public class PayRollDto {
 
-    private String name;
-    private LocalDate dateOfBirth;
-    private String gender;
-    private String relationship;
-    private String phoneMobile;
     private String employeeName;
+
+    private BigDecimal amount;
+
+    private LocalDateTime dateTime;
+
 }

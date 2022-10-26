@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,9 +35,14 @@ public class PayRoll {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private BigDecimal amount;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
+    @JoinTable(name = "employee_payroll",
+            joinColumns = @JoinColumn(name = "salary_id"),
+            inverseJoinColumns = @JoinColumn(name = "payroll_id")
+    )
+    private List<Salary> salary;
 
 
 

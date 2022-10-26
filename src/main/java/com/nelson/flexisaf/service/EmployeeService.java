@@ -20,7 +20,5 @@ public interface EmployeeService {
 
     String getFirstAndLastNameByEmail(String email);
 
-    List<Employee> getEmployeeByDepartmentNameContaining(String name);
-
     EmployeeProfileDto getEmployeeProfile(String email);
 }

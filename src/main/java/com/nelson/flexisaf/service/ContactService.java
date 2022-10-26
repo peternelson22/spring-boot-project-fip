@@ -5,7 +5,7 @@ import com.nelson.flexisaf.dto.ContactDto;
 
 public interface ContactService {
 
-    void updateContactInfo(Long id, Contact contact);
+    void updateContactInfo(Long id, ContactDto contactDto);
 
     void saveContact(Long id, ContactDto contactDto);
 

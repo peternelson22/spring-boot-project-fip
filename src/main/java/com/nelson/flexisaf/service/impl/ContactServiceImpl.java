@@ -21,13 +21,19 @@ public class ContactServiceImpl implements ContactService {
 
 
     @Override
-    public void updateContactInfo(Long id, Contact contact) {
-        Contact existingContact = contactRepository.findById(id).orElseThrow(() -> new IllegalStateException("Not found"));
-        existingContact.setPhoneMobile(contact.getPhoneMobile());
-        existingContact.setPhoneHome(contact.getPhoneHome());
-        existingContact.setNextOfKinMobile(contact.getNextOfKinMobile());
-        existingContact.setAddress(contact.getAddress());
-        contactRepository.save(existingContact);
+    public void updateContactInfo(Long id, ContactDto contactDto) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Employee with id " + id + " does not exist"));
+
+        Contact contact = contactRepository.findById(id).get();
+
+        contact.setAddress(contactDto.getAddress());
+        contact.setPhoneMobile(contactDto.getPhoneMobile());
+        contact.setNextOfKinMobile(contactDto.getNextOfKinMobile());
+        contact.setPhoneHome(contactDto.getPhoneHome());
+        contact.setEmployee(employee);
+
+        contactRepository.save(contact);
     }
 
     @Override
@@ -49,19 +55,16 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public ContactDto getEmployeeContactDetails(String email) {
-        Optional<Employee> e = employeeRepository.findByEmail(email);
-        if (!e.isPresent())
+        Employee employee = employeeRepository.findByEmail(email);
+        if (employee == null)
             throw new ResourceNotFoundException("No employee found with email " + email);
 
-        Contact contact = new Contact();
-        ContactDto contactDto = ContactDto.builder()
-                .name(contact.getEmployee().getFirstName() + " " + contact.getEmployee().getLastName())
-                .address(contact.getAddress())
-                .phoneMobile(contact.getPhoneMobile())
-                .phoneHome(contact.getPhoneHome())
-                .email(contact.getEmployee().getEmail())
-                .nextOfKinMobile(contact.getNextOfKinMobile())
-                .build();
+        ContactDto contactDto = new ContactDto();
+        contactDto.setAddress(employee.getContact().getAddress());
+        contactDto.setPhoneHome(employee.getContact().getPhoneHome());
+        contactDto.setEmail(employee.getEmail());
+        contactDto.setNextOfKinMobile(employee.getContact().getNextOfKinMobile());
+        contactDto.setName(employee.getFirstName() + " " + employee.getLastName());
 
         return contactDto;
     }

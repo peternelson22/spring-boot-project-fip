@@ -18,7 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFirstNameContaining(String name, Sort sort);
 
-    Optional<Employee> findByEmail(String email);
+    Employee findByEmail(String email);
 
     //JPQL QUERY - REFERENCES THE OBJECT CLASS NAME RATHER THAN THE TABLE's NAME
     @Query("SELECT e.firstName, e.lastName FROM Employee e WHERE e.email = :email")

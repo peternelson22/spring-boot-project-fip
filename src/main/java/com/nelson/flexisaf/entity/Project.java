@@ -45,7 +45,6 @@ public class Project {
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "project_status", nullable = false)
     private ProjectStatus projectStatus;
 
     @ManyToOne(fetch = FetchType.EAGER)
