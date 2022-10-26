@@ -8,17 +8,15 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    Employee saveEmployee(EmployeeDto employeeDto);
+    void saveEmployee(EmployeeDto employeeDto);
 
-    Employee updateEmployee(Long id, Employee employee);
+    void updateEmployee(Long id, EmployeeDto employeeDto);
 
     void deleteEmployee(Long id);
 
-    List<Employee> getEmployeeByNameIgnoreCase(String firstName);
-
     List<Employee> getEmployeeByNameContaining(String name);
 
-    List<Employee> getAllEmployees(int pageNumber, int pageSize);
+    List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize);
 
     String getFirstAndLastNameByEmail(String email);
 

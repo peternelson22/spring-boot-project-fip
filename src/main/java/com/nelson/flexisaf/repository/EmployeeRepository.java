@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
@@ -17,7 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findByFirstNameContaining(String name, Sort sort);
 
-    Employee findByEmail(String email);
+    Optional<Employee> findByEmail(String email);
 
     //JPQL QUERY - REFERENCES THE OBJECT CLASS NAME RATHER THAN THE TABLE's NAME
     @Query("SELECT e.firstName, e.lastName FROM Employee e WHERE e.email = :email")

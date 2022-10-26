@@ -20,12 +20,13 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping ("/save")
-    public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
-        return new ResponseEntity<>(employeeService.saveEmployee(employeeDto), HttpStatus.CREATED);
+    public ResponseEntity<String> saveEmployee(@Valid @RequestBody EmployeeDto employeeDto){
+        employeeService.saveEmployee(employeeDto);
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Employee>> getAllEmployees(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestParam Integer pageNumber, @RequestParam Integer pageSize){
         return ResponseEntity.ok(employeeService.getAllEmployees(pageNumber, pageSize));
     }
 
@@ -35,10 +36,6 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getEmployeeProfile(email));
     }
 
-    @GetMapping("/firstname/{firstname}")
-    public ResponseEntity<List<Employee>> getEmployeeByNameIgnoreCase(@PathVariable("firstname") String firstName){
-        return ResponseEntity.ok(employeeService.getEmployeeByNameIgnoreCase(firstName));
-    }
 
     @GetMapping("/name/{name}")
     public List<Employee> getEmployeesByNameContaining(@PathVariable String name){
@@ -58,8 +55,9 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
-        return new ResponseEntity<>(employeeService.updateEmployee(id, employee), HttpStatus.CREATED);
+    public ResponseEntity<String> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto){
+        employeeService.updateEmployee(id, employeeDto);
+        return new ResponseEntity<>("Successful" , HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

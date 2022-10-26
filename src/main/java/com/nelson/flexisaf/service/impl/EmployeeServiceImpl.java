@@ -3,63 +3,66 @@ package com.nelson.flexisaf.service.impl;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
+import com.nelson.flexisaf.exception.GenericApiException;
+import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
-    private DepartmentRepository departmentRepository;
-
     @Override
-    public Employee saveEmployee(EmployeeDto employeeDto) {
+    public void saveEmployee(EmployeeDto employeeDto) {
+        Optional<Employee> existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
+        if (existingEmployee.isPresent()) {
+            log.info("Trying to register with an existing email");
+            throw new GenericApiException("Email taken, please enter another email address");
+        }
+        Employee employee = Employee.builder()
+                .firstName(employeeDto.getFirstname())
+                .lastName(employeeDto.getLastname())
+                .dateOfBirth(employeeDto.getDateOfBirth())
+                .gender(employeeDto.getGender())
+                .email(employeeDto.getEmail())
+                .employedDate(LocalDate.now())
+                .sackedDate(null)
+                .build();
 
-        Employee employee = new Employee();
-        employee.setFirstName(employeeDto.getFirstname());
-        employee.setLastName(employeeDto.getLastname());
-        employee.setEmail(employeeDto.getEmail());
-        employee.setGender(employeeDto.getGender());
-        employee.setDateOfBirth(employeeDto.getDateOfBirth());
-        employee.setEmployedDate(LocalDate.now());
-        employee.setSackedDate(null);
-
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
     }
 
     @Override
-    public Employee updateEmployee(Long id, Employee employee) {
-        Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() ->
-                new IllegalStateException("Employee with id " + id + " does not exist"));
+    public void updateEmployee(Long id, EmployeeDto employeeDto) {
+        Optional<Employee> existingEmployee = employeeRepository.findById(id);
+            if (!existingEmployee.isPresent())
+                throw new ResourceNotFoundException("Employee with id " + id + " does not exist");
+        Employee employee = Employee.builder()
+                .firstName(employeeDto.getFirstname())
+                .lastName(employeeDto.getLastname())
+                .build();
 
-        existingEmployee.setFirstName(employee.getFirstName());
-        existingEmployee.setLastName(employee.getLastName());
-        existingEmployee.setEmail(employee.getEmail());
-        existingEmployee.setDepartment(employee.getDepartment());
-
-        return employeeRepository.save(existingEmployee);
+        employeeRepository.save(employee);
     }
 
     @Override
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
-    }
-
-
-    @Override
-    public List<Employee> getEmployeeByNameIgnoreCase(String firstName) {
-        return employeeRepository.findByFirstNameIgnoreCase(firstName);
     }
 
     //SORTING
@@ -71,9 +74,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //PAGINATION & SORTING
     @Override
-    public List<Employee> getAllEmployees(int pageNumber, int pageSize) {
-        Pageable pages = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "id");
-        return employeeRepository.findAll(pages).getContent();
+    public List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize) {
+        List<EmployeeDto> list = new ArrayList<>();
+        Pageable pages = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName");
+        List<Employee> employee = employeeRepository.findAll(pages).getContent();
+        employee.forEach(e -> {
+
+        EmployeeDto employeeDto = EmployeeDto.builder()
+                .firstname(e.getFirstName())
+                .lastname(e.getLastName())
+                .email(e.getEmail())
+                .dateOfBirth(e.getDateOfBirth())
+                .gender(e.getGender())
+                .departmentName(e.getDepartment().getName())
+                .build();
+        list.add(employeeDto);
+
+        });
+        return list;
     }
 
 
@@ -90,36 +108,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeProfileDto getEmployeeProfile(String email) {
-        EmployeeProfileDto employeeProfileDto = new EmployeeProfileDto();
+        Optional<Employee> e = employeeRepository.findByEmail(email);
+        if (!e.isPresent())
+            throw new ResourceNotFoundException("Employee with email " + email + " is not available");
 
-        Employee employee = employeeRepository.findByEmail(email);
-        employeeProfileDto.setAddress(employee.getContact().getAddress());
-        employeeProfileDto.setGender(employee.getGender());
-        employeeProfileDto.setEmail(employee.getEmail());
-        employeeProfileDto.setPhoneMobile(employee.getContact().getPhoneMobile());
-        employeeProfileDto.setFirstName(employee.getFirstName());
-        employeeProfileDto.setLastName(employee.getLastName());
-        employeeProfileDto.setEmployedDate(employee.getEmployedDate());
-        employeeProfileDto.setDepartment(employee.getDepartment().getName().name());
-        employeeProfileDto.setSalaryAmount(employee.getSalary().getAmount());
+        Employee employee = new Employee();
+        EmployeeProfileDto employeeProfileDto = EmployeeProfileDto.builder()
+                .firstName(employee.getFirstName())
+                .lastName(employee.getLastName())
+                .gender(employee.getGender())
+                .address(employee.getContact().getAddress())
+                .department(employee.getDepartment().getName())
+                .salaryAmount(employee.getSalary().getAmount())
+                .phoneMobile(employee.getContact().getPhoneMobile())
+                .employedDate(employee.getEmployedDate())
+                .build();
 
         return employeeProfileDto;
     }
-
-    /*@Override
-    public EmployeeDto getEmployeeByEmail(String email) {
-        EmployeeDto employeeDto = new EmployeeDto();
-        Employee employee = employeeRepository.findByEmail(email);
-
-        employeeDto.setFirstname(employee.getFirstName());
-        employeeDto.setLastname(employee.getLastName());
-        employeeDto.setDepartmentName(employee.getDepartment().getName());
-        employeeDto.setGender(employee.getGender());
-        employeeDto.setEmail(employee.getEmail());
-        employeeDto.setDateOfBirth(employee.getDateOfBirth());
-
-        return employeeDto;
-    }
-*/
 
 }

@@ -23,23 +23,25 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void assignDepartment(DepartmentDto departmentDto, Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(IllegalAccessError::new);
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee with id " + id + "does not exist"));
 
-        Department department = new Department();
-        department.setName(departmentDto.getName());
+        Department department = Department.builder()
+                .name(departmentDto.getName())
+                .build();
         employee.setDepartment(department);
-
+        
         departmentRepository.save(department);
     }
 
     @Override @Transactional
     public void updateDepartment(Long id, DepartmentDto departmentDto) throws ResourceNotFoundException {
         Optional<Employee> existingEmployee = employeeRepository.findById(id);
-        Employee employee = new Employee();
 
         if (!existingEmployee.isPresent()){
-            throw new ResourceNotFoundException("Employee is not available");
+            throw new ResourceNotFoundException("Employee with id " + id + " is not available");
         }
+        Employee employee = new Employee();
         Department department = departmentRepository.findById(id).get();
         department.setName(departmentDto.getName());
         employee.setDepartment(department);

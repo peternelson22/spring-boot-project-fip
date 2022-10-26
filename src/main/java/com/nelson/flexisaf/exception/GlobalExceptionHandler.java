@@ -41,4 +41,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorMessage message = new ErrorMessage(HttpStatus.NOT_FOUND, exception.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
     }
+
+    @ExceptionHandler(GenericApiException.class)
+    public ResponseEntity<ErrorMessage> genericException(GenericApiException exception, WebRequest request){
+
+        ErrorMessage message = new ErrorMessage(HttpStatus.CONFLICT, exception.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+    }
 }
