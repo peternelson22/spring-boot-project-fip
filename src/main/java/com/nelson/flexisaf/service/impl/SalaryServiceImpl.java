@@ -3,6 +3,7 @@ package com.nelson.flexisaf.service.impl;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.Salary;
 import com.nelson.flexisaf.dto.SalaryDto;
+import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.repository.SalaryRepository;
 import com.nelson.flexisaf.service.SalaryService;
@@ -25,7 +26,7 @@ public class SalaryServiceImpl implements SalaryService {
         Employee employee = employeeRepository.findById(id).get();
 
         if (employee == null){
-            throw new IllegalStateException("Employee with " + id + " does not exit");
+            throw new ResourceNotFoundException("Employee with " + id + " does not exit");
         }
         Salary salary = new Salary();
         salary.setAmount(salaryDto.getAmount());

@@ -1,8 +1,7 @@
 package com.nelson.flexisaf.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nelson.flexisaf.entity.Department;
-import com.nelson.flexisaf.entity.Department.DEPARTMENT;
+import com.nelson.flexisaf.entity.Department.DepartmentType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class EmployeeDto {
     private String gender;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
-    private DEPARTMENT departmentName;
+    private DepartmentType departmentTypeName;
 
 
 }

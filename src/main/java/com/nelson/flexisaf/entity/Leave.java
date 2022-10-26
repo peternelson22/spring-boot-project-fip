@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,9 +31,14 @@ public class Leave {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime dateOfLeave;
+    private LocalDate dateOfLeave;
 
-    @Column(columnDefinition = "SMALLINT default 0")
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean status;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+
+    private Integer weeksSpent;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

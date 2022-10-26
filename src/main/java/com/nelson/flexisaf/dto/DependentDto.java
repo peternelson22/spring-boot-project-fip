@@ -14,5 +14,5 @@ public class DependentDto {
     private String gender;
     private String relationship;
     private String phoneMobile;
-    private Long employeeId;
+    private String employeeName;
 }

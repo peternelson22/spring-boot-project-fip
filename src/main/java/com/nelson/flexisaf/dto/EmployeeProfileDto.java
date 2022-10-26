@@ -1,8 +1,7 @@
 package com.nelson.flexisaf.dto;
 
 import com.nelson.flexisaf.entity.Department;
-import com.nelson.flexisaf.entity.Department.DEPARTMENT;
-import com.nelson.flexisaf.entity.Qualification;
+import com.nelson.flexisaf.entity.Department.DepartmentType;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +23,7 @@ public class EmployeeProfileDto {
     private String email;
     private String gender;
     private String address;
-    private DEPARTMENT department;
+    private DepartmentType departmentType;
     private String phoneMobile;
     private LocalDate employedDate;
     private BigDecimal salaryAmount;

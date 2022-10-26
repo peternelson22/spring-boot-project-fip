@@ -3,6 +3,7 @@ package com.nelson.flexisaf.service.impl;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.entity.Qualification;
 import com.nelson.flexisaf.dto.QualificationDto;
+import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.repository.QualificationRepository;
 import com.nelson.flexisaf.service.QualificationService;
@@ -19,7 +20,7 @@ public class QualificationServiceImpl implements QualificationService {
 
     @Override
     public void saveQualification(Long id, QualificationDto qualificationDto) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND"));
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOT FOUND"));
 
         Qualification qualification = new Qualification();
         qualification.setQualificationType(qualificationDto.getQualificationType());

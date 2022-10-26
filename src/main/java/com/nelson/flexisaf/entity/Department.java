@@ -29,14 +29,14 @@ public class Department {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private DEPARTMENT name;
+    private DepartmentType name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
     private List<Employee> employees;
 
 
 
-    public enum DEPARTMENT{
+    public enum DepartmentType {
         BACKEND,
         FRONTEND,
         DESIGN

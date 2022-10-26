@@ -1,6 +1,10 @@
 package com.nelson.flexisaf.controller;
 
+import com.nelson.flexisaf.dto.ContactDto;
+import com.nelson.flexisaf.dto.DepartmentDto;
 import com.nelson.flexisaf.dto.DependentDto;
+import com.nelson.flexisaf.entity.Contact;
+import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.service.DependentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,4 +23,16 @@ public class DependentController {
             dependentService.saveDependent(id, dependentDto);
             return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateDependentInfo(@PathVariable Long id, @RequestBody DependentDto dependentDto) throws ResourceNotFoundException {
+        dependentService.updateDependentInfo(id, dependentDto);
+        return new ResponseEntity<>("Done", HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/details/{email}")
+    public ResponseEntity<DependentDto> getEmployeeDependentDetails(@PathVariable String email){
+        return ResponseEntity.ok(dependentService.getEmployeeDependentDetails(email));
+    }
+
 }

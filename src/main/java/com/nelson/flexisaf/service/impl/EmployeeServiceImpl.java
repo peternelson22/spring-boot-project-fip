@@ -5,7 +5,6 @@ import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
 import com.nelson.flexisaf.exception.GenericApiException;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
-import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -86,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .email(e.getEmail())
                 .dateOfBirth(e.getDateOfBirth())
                 .gender(e.getGender())
-                .departmentName(e.getDepartment().getName())
+                .departmentTypeName(e.getDepartment().getName())
                 .build();
         list.add(employeeDto);
 
@@ -118,7 +117,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .lastName(employee.getLastName())
                 .gender(employee.getGender())
                 .address(employee.getContact().getAddress())
-                .department(employee.getDepartment().getName())
+                .departmentType(employee.getDepartment().getName())
                 .salaryAmount(employee.getSalary().getAmount())
                 .phoneMobile(employee.getContact().getPhoneMobile())
                 .employedDate(employee.getEmployedDate())

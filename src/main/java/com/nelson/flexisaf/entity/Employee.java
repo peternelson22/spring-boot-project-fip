@@ -22,14 +22,14 @@ import java.util.List;
 @Builder
 @Table(name = "employees", uniqueConstraints = @UniqueConstraint(name = "email_unique", columnNames = "email"))
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Employee{
+public class Employee {
 
     @Id
-   @SequenceGenerator(
-           name = "employee_sequence",
-           sequenceName = "employee_sequence",
-           allocationSize = 1
-   )
+    @SequenceGenerator(
+            name = "employee_sequence",
+            sequenceName = "employee_sequence",
+            allocationSize = 1
+    )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "employee_sequence"
@@ -79,13 +79,15 @@ public class Employee{
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private Salary salary;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    private List<Leave> leave;
 
 
- public Integer getAge() {
-          return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+    public Integer getAge() {
+        return Period.between(this.dateOfBirth, LocalDate.now()).getYears();
     }
 
     public void setAge(Integer age) {
-         this.age = age;
+        this.age = age;
     }
 }

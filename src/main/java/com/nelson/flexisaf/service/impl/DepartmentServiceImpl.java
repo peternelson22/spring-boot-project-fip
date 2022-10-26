@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .name(departmentDto.getName())
                 .build();
         employee.setDepartment(department);
-        
+
         departmentRepository.save(department);
     }
 
@@ -48,4 +48,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         departmentRepository.save(department);
     }
+
+    @Override
+    public void deleteEmployeeDepartment(Long id) {
+        departmentRepository.deleteById(id);
+    }
+
+
 }
