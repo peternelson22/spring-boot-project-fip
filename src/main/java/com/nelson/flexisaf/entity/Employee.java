@@ -63,7 +63,8 @@ public class Employee {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "employee")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id")
     private Department department;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")

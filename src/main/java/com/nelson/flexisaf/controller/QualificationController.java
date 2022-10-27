@@ -19,4 +19,10 @@ public class QualificationController {
         qualificationService.saveQualification(id, qualificationDto);
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateQualification(@PathVariable Long id, @RequestBody QualificationDto qualificationDto){
+        qualificationService.updateQualification(id, qualificationDto);
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
+    }
 }

@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
@@ -24,10 +26,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee with id " + id + " does not exist"));
 
-        Department department = Department.builder()
-                .name(departmentDto.getName())
-                .employee(employee)
-                .build();
+        Department department = new Department();
+        department.setName(departmentDto.getName());
+        department.setEmployee(List.of(employee));
 
         departmentRepository.save(department);
     }
@@ -40,7 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department department = departmentRepository.findById(id).get();
         department.setName(departmentDto.getName());
-        department.setEmployee(employee);
+        employee.setDepartment(department);
 
         departmentRepository.save(department);
     }

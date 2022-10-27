@@ -5,4 +5,6 @@ import com.nelson.flexisaf.dto.QualificationDto;
 public interface QualificationService {
 
     void saveQualification(Long id, QualificationDto qualificationDto);
+
+    void updateQualification(Long id, QualificationDto qualificationDto);
 }

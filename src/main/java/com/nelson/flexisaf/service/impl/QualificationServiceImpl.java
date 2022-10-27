@@ -31,4 +31,17 @@ public class QualificationServiceImpl implements QualificationService {
 
         qualificationRepository.save(qualification);
     }
+
+    @Override
+    public void updateQualification(Long id, QualificationDto qualificationDto) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Employee with id  + id +  does not exist"));
+
+        Qualification qualification = qualificationRepository.findById(id).get();
+        qualification.setDateIn(qualificationDto.getDateIn());
+        qualification.setQualificationType(qualificationDto.getQualificationType());
+        qualification.setEmployee(employee);
+
+        qualificationRepository.save(qualification);
+    }
 }

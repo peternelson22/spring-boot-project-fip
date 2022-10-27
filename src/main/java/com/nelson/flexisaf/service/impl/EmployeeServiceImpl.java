@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.service.impl;
 
+import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
@@ -7,6 +8,7 @@ import com.nelson.flexisaf.entity.Qualification;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import com.nelson.flexisaf.exception.GenericApiException;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
+import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
+    private DepartmentRepository departmentRepository;
+
     @Override
     public void saveEmployee(EmployeeDto employeeDto) {
         Employee existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
@@ -35,6 +39,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             log.info("Trying to register with an existing email");
             throw new GenericApiException("Email taken, please enter another email address");
         }
+        Department department = Department.builder()
+                .name(employeeDto.getDepartmentTypeName())
+                .build();
+
         Employee employee = Employee.builder()
                 .firstName(employeeDto.getFirstname())
                 .lastName(employeeDto.getLastname())
@@ -43,6 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .email(employeeDto.getEmail())
                 .employedDate(LocalDate.now())
                 .sackedDate(null)
+                .department(department)
                 .build();
 
         employeeRepository.save(employee);
@@ -50,16 +59,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(Long id, EmployeeDto employeeDto) {
-        Optional<Employee> existingEmployee = employeeRepository.findById(id);
-            if (!existingEmployee.isPresent())
-                throw new ResourceNotFoundException("Employee with id " + id + " does not exist");
+        Employee existingEmployee = employeeRepository.findById(id).get();
+        if (existingEmployee == null)
+            throw new ResourceNotFoundException("Employee with id " + id + " does not exist");
 
-        Employee employee = Employee.builder()
-                .firstName(employeeDto.getFirstname())
-                .lastName(employeeDto.getLastname())
-                .build();
+        Department department = departmentRepository.findById(id).get();
 
-        employeeRepository.save(employee);
+        existingEmployee.setFirstName(employeeDto.getFirstname());
+        existingEmployee.setEmail(employeeDto.getEmail());
+        existingEmployee.setLastName(employeeDto.getLastname());
+        existingEmployee.setDepartment(department);
+
+        employeeRepository.save(existingEmployee);
     }
 
     @Override
@@ -82,15 +93,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employee = employeeRepository.findAll(pages).getContent();
         employee.forEach(e -> {
 
-        EmployeeDto employeeDto = EmployeeDto.builder()
-                .firstname(e.getFirstName())
-                .lastname(e.getLastName())
-                .email(e.getEmail())
-                .dateOfBirth(e.getDateOfBirth())
-                .gender(e.getGender())
-                .departmentTypeName(e.getDepartment().getName())
-                .build();
-        list.add(employeeDto);
+            EmployeeDto employeeDto = EmployeeDto.builder()
+                    .firstname(e.getFirstName())
+                    .lastname(e.getLastName())
+                    .email(e.getEmail())
+                    .dateOfBirth(e.getDateOfBirth())
+                    .gender(e.getGender())
+                    .departmentTypeName(e.getDepartment().getName())
+                    .build();
+            list.add(employeeDto);
 
         });
         return list;
@@ -108,7 +119,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findByEmail(email);
 
         if (employee == null)
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("No Employee found for this " + email);
 
         EmployeeProfileDto profileDto = new EmployeeProfileDto();
         profileDto.setEmail(employee.getEmail());
@@ -120,7 +131,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         profileDto.setSalaryAmount(employee.getSalary().getAmount());
         profileDto.setEmployedDate(employee.getEmployedDate());
         profileDto.setDepartmentType(employee.getDepartment().getName());
-        //profileDto.setQualificationTypes(QualificationType.valueOf(List.of(employee)));
+        //profileDto.setQualificationTypes(Enum.valueOf(QualificationType.));
 
         return profileDto;
     }
