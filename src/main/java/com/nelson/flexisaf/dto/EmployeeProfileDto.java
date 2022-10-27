@@ -28,5 +28,5 @@ public class EmployeeProfileDto {
     private String phoneMobile;
     private LocalDate employedDate;
     private BigDecimal salaryAmount;
-    private List<QualificationType> qualificationTypes;
+    private QualificationType qualificationTypes;
 }

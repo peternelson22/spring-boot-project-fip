@@ -3,6 +3,8 @@ package com.nelson.flexisaf.service.impl;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
+import com.nelson.flexisaf.entity.Qualification;
+import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import com.nelson.flexisaf.exception.GenericApiException;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.EmployeeRepository;
@@ -104,19 +106,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeProfileDto getEmployeeProfile(String email) {
         Employee employee = employeeRepository.findByEmail(email);
+
         if (employee == null)
             throw new ResourceNotFoundException();
 
         EmployeeProfileDto profileDto = new EmployeeProfileDto();
         profileDto.setEmail(employee.getEmail());
+        profileDto.setGender(employee.getGender());
         profileDto.setAddress(employee.getContact().getAddress());
-        profileDto.setFirstName(employee.getFirstName());
         profileDto.setLastName(employee.getLastName());
+        profileDto.setFirstName(employee.getFirstName());
         profileDto.setPhoneMobile(employee.getContact().getPhoneMobile());
         profileDto.setSalaryAmount(employee.getSalary().getAmount());
         profileDto.setEmployedDate(employee.getEmployedDate());
         profileDto.setDepartmentType(employee.getDepartment().getName());
-        profileDto.setGender(employee.getGender());
+        //profileDto.setQualificationTypes(QualificationType.valueOf(List.of(employee)));
+
         return profileDto;
     }
 
