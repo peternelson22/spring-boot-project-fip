@@ -30,18 +30,15 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getAllEmployees(pageNumber, pageSize));
     }
 
-
     @GetMapping("/profile/{email}")
     public ResponseEntity<EmployeeProfileDto> getEmployeeProfile(@PathVariable String email){
         return ResponseEntity.ok(employeeService.getEmployeeProfile(email));
     }
 
-
     @GetMapping("/name/{name}")
     public List<Employee> getEmployeesByNameContaining(@PathVariable String name){
         return employeeService.getEmployeeByNameContaining(name);
     }
-
 
     @GetMapping("/fullname")
     public String getFirstAndLastNameByEmail(@RequestParam String email){

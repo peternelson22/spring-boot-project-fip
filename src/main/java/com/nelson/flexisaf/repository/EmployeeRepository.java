@@ -14,8 +14,6 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 
-    List<Employee> findByFirstNameIgnoreCase(String firstName);
-
     List<Employee> findByFirstNameContaining(String name, Sort sort);
 
     Employee findByEmail(String email);
@@ -23,8 +21,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     //JPQL QUERY - REFERENCES THE OBJECT CLASS NAME RATHER THAN THE TABLE's NAME
     @Query("SELECT e.firstName, e.lastName FROM Employee e WHERE e.email = :email")
     String getEmployeeFirstNameAndLastNameByEmail(String email);
-
-    @Transactional
+    
+    /* @Transactional
     @Modifying
     @Query("DELETE FROM Employee WHERE email = :email")
     Integer deleteByEmailAddress (String email);
@@ -40,5 +38,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     //Join query using JPA Specification
     List<Employee> findByDepartmentNameContaining(String name);
-
+    */
 }
