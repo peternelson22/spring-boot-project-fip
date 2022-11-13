@@ -18,6 +18,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Employee findByEmail(String email);
 
+    List<Employee> findByFirstNameIgnoreCase(String name);
+
     //JPQL QUERY - REFERENCES THE OBJECT CLASS NAME RATHER THAN THE TABLE's NAME
     @Query("SELECT e.firstName, e.lastName FROM Employee e WHERE e.email = :email")
     String getEmployeeFirstNameAndLastNameByEmail(String email);

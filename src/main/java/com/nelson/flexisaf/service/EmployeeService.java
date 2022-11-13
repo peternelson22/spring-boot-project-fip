@@ -1,6 +1,5 @@
 package com.nelson.flexisaf.service;
 
-import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
 
@@ -14,7 +13,7 @@ public interface EmployeeService {
 
     void deleteEmployee(Long id);
 
-    List<Employee> getEmployeeByNameContaining(String name);
+    List<EmployeeDto> getEmployeeByNameIgnoreCase(String name);
 
     List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize);
 

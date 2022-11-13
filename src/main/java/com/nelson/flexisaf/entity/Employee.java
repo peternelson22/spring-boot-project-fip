@@ -73,7 +73,7 @@ public class Employee {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Dependent> dependents;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Qualification> qualifications;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
@@ -81,6 +81,9 @@ public class Employee {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Leave> leave;
+
+    @ManyToMany(mappedBy = "employees", cascade = CascadeType.ALL)
+    private List<GuestLog> guestLogs;
 
 
     public Integer getAge() {

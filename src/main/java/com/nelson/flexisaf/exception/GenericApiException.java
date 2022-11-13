@@ -1,6 +1,7 @@
 package com.nelson.flexisaf.exception;
 
 public class GenericApiException extends RuntimeException{
+
     public GenericApiException() {
         super();
     }

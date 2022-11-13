@@ -50,7 +50,7 @@ public class LeaveServiceImpl implements LeaveService {
             throw new ResourceNotFoundException("Employee not found");
         }
         List<Leave> leave = leaveRepository.findAll();
-        leave.stream().forEach(e -> {
+        leave.forEach(e -> {
             LeaveDto leaveDto = LeaveDto.builder()
                     .dateOfLeave(e.getDateOfLeave())
                     .endDate(e.getEndDate())

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -29,11 +30,9 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public void saveEmployeeSalary(Long id, SalaryDto salaryDto) {
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Employee with " + id + " does not exit"));
 
-        if (employee == null){
-            throw new ResourceNotFoundException("Employee with " + id + " does not exit");
-        }
         Salary salary = Salary.builder()
                 .amount(salaryDto.getAmount())
                 .bonus(salaryDto.getBonus())

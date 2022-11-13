@@ -59,11 +59,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void updateEmployee(Long id, EmployeeDto employeeDto) {
-        Employee existingEmployee = employeeRepository.findById(id).get();
-        if (existingEmployee == null)
-            throw new ResourceNotFoundException("Employee with id " + id + " does not exist");
+        Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Employee with "  + id + " does not exist"));
 
-        Department department = departmentRepository.findById(id).get();
+        Department department = departmentRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Department with "  + id + " does not exist"));
 
         existingEmployee.setFirstName(employeeDto.getFirstname());
         existingEmployee.setEmail(employeeDto.getEmail());
@@ -80,9 +80,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     //SORTING
     @Override
-    public List<Employee> getEmployeeByNameContaining(String name) {
+    public List<EmployeeDto> getEmployeeByNameIgnoreCase(String name) {
         Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
-        return employeeRepository.findByFirstNameContaining(name, sort);
+
+        List<EmployeeDto> list = new ArrayList<>();
+        List<Employee> employees = employeeRepository.findByFirstNameIgnoreCase(name);
+        employees.forEach(e -> {
+            EmployeeDto dto = EmployeeDto.builder()
+                    .firstname(e.getFirstName())
+                    .lastname(e.getLastName())
+                    .gender(e.getGender())
+                    .email(e.getEmail())
+                    .departmentTypeName(e.getDepartment().getName())
+                    .build();
+
+            list.add(dto);
+        });
+        return list;
     }
 
     //PAGINATION & SORTING

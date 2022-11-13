@@ -10,7 +10,6 @@ import com.nelson.flexisaf.service.ContactService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

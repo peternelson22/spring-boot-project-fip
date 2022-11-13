@@ -17,3 +17,7 @@ CREATE TABLE employees (
 );
 
 ALTER TABLE employees ADD CONSTRAINT email_unique UNIQUE (email);
+
+
+
+create table payroll(id bigserial, first_name varchar(255), last_name varchar(255), company_id varchar(255), position varchar(255), salary int, register_date date, primary key (id));
