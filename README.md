@@ -1,4 +1,4 @@
-## MY FLEXISAF INTERNSHIP PROJECT
+## Spring Boot App
 
 This is an application that can be used by a company's employees to
 track work progress and for the management to monitor and manage the details
@@ -15,5 +15,5 @@ to document them.
 Simply get the project into your local machine and access exposed
 endpoints via http://localhost:8080/swagger-ui.html.  
 
-# THIS IS AN ONGOING PROJECT!!!
+# ONGOING PROJECT!!!
 
