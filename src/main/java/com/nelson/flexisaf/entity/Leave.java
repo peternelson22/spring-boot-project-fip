@@ -38,7 +38,7 @@ public class Leave {
 
     private Integer weeksSpent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 }

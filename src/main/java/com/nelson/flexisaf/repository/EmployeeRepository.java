@@ -14,13 +14,14 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 
-    List<Employee> findByFirstNameContaining(String name, Sort sort);
+    //List<Employee> findByFirstNameContaining(String name, Sort sort);
 
     Employee findByEmail(String email);
 
     List<Employee> findByFirstNameIgnoreCase(String name);
 
-    //JPQL QUERY - REFERENCES THE OBJECT CLASS NAME RATHER THAN THE TABLE's NAME
+    //JPQL QUERY - REFERENCES THE OBJECT
+    // CLASS NAME RATHER THAN THE TABLE's NAME
     @Query("SELECT e.firstName, e.lastName FROM Employee e WHERE e.email = :email")
     String getEmployeeFirstNameAndLastNameByEmail(String email);
     

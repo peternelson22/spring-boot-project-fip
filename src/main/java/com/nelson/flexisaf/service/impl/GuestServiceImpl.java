@@ -30,7 +30,7 @@ public class GuestServiceImpl implements GuestService {
         GuestLog guestLog = GuestLog.builder()
                 .description(guestDto.getDescription())
                 .date(LocalDate.now())
-                .employees(List.of(employee))
+                .employee(employee)
                 .build();
 
         guestRepository.save(guestLog);
@@ -50,6 +50,7 @@ public class GuestServiceImpl implements GuestService {
             GuestDto guestDto = GuestDto.builder()
                     .description(g.getDescription())
                     .date(LocalDate.now())
+                    .name(g.getEmployee().getFirstName() + " " + g.getEmployee().getLastName())
                     .build();
             list.add(guestDto);
         } );

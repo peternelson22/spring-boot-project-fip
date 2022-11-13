@@ -82,7 +82,7 @@ public class Employee {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
     private List<Leave> leave;
 
-    @ManyToMany(mappedBy = "employees", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<GuestLog> guestLogs;
 
 

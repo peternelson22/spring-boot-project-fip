@@ -17,4 +17,6 @@ public class GuestDto {
 
     private LocalDate date;
 
+    private String name;
+
 }
