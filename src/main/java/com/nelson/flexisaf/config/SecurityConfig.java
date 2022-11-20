@@ -11,6 +11,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -35,6 +36,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.*;
 
 @Configuration
@@ -42,7 +44,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private EmployeeUserRepository userRepository;
 
     @Value("${jwt.public.key}")
     RSAPublicKey publicKey;
@@ -68,6 +69,10 @@ public class SecurityConfig {
                         .permitAll()
                         .antMatchers("/login")
                         .permitAll()
+                        .antMatchers(GET, "/guests/**")
+                        .permitAll()
+                        .antMatchers(GET, "/contact/details/**")
+                        .permitAll()
                         .antMatchers("/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
@@ -90,7 +95,6 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     JwtDecoder jwtDecoder() {

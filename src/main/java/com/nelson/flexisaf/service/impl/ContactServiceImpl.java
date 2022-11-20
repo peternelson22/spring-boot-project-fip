@@ -60,6 +60,7 @@ public class ContactServiceImpl implements ContactService {
 
         ContactDto contactDto = new ContactDto();
         contactDto.setAddress(employee.getContact().getAddress());
+        contactDto.setPhoneMobile(employee.getContact().getPhoneMobile());
         contactDto.setPhoneHome(employee.getContact().getPhoneHome());
         contactDto.setEmail(employee.getEmail());
         contactDto.setNextOfKinMobile(employee.getContact().getNextOfKinMobile());

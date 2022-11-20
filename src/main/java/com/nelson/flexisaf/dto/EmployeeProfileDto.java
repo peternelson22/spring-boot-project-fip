@@ -1,9 +1,7 @@
 package com.nelson.flexisaf.dto;
 
-import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Department.DepartmentType;
-import com.nelson.flexisaf.entity.Project;
-import com.nelson.flexisaf.entity.Qualification.QualificationType;
+import com.nelson.flexisaf.entity.Qualification;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+
+import static com.nelson.flexisaf.entity.Qualification.*;
 
 @Data
 @AllArgsConstructor
@@ -28,5 +27,4 @@ public class EmployeeProfileDto {
     private String phoneMobile;
     private LocalDate employedDate;
     private BigDecimal salaryAmount;
-    private QualificationType qualificationTypes;
 }

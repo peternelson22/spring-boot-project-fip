@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nelson.flexisaf.entity.Qualification;
 import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class QualificationDto {
 
     private QualificationType qualificationType;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateIn;
 
 }

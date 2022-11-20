@@ -17,6 +17,4 @@ public class ContactDto {
     private String nextOfKinMobile;
     private String name;
     private String email;
-    private Long employeeId;
-
 }

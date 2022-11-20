@@ -17,12 +17,16 @@ import java.time.LocalDate;
 public class EmployeeDto {
 
     private String firstname;
+
     private String lastname;
+
     private String email;
+
     private String gender;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonIgnore
     private LocalDate dateOfBirth;
+
     private DepartmentType departmentTypeName;
 
 

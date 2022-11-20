@@ -10,6 +10,7 @@ import com.nelson.flexisaf.exception.GenericApiException;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
+import com.nelson.flexisaf.repository.QualificationRepository;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -145,7 +146,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         profileDto.setSalaryAmount(employee.getSalary().getAmount());
         profileDto.setEmployedDate(employee.getEmployedDate());
         profileDto.setDepartmentType(employee.getDepartment().getName());
-        //profileDto.setQualificationTypes(Enum.valueOf(QualificationType.));
 
         return profileDto;
     }
