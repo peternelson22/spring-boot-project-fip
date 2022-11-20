@@ -7,3 +7,14 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: true
+
+
+jwt:
+  expiration:
+    time: 1800000
+
+  public:
+    key: classpath:certs/public.pem
+
+  private:
+    key: classpath:certs/private.pem

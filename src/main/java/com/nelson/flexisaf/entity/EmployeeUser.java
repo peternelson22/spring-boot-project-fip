@@ -1,19 +1,19 @@
 package com.nelson.flexisaf.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
-@Data
+@Setter @Getter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -43,14 +43,14 @@ public class EmployeeUser {
     @JsonIgnore
     private String password;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false, insertable = false)
-    private LocalDateTime createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private Login login;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> role;
 }
