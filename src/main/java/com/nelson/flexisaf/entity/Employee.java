@@ -15,6 +15,10 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+import static javax.persistence.GenerationType.*;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -31,12 +35,12 @@ public class Employee {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
+            strategy = SEQUENCE,
             generator = "employee_sequence"
     )
     private Long id;
 
-    @NotBlank(message = "firstname must not be empty")
+    @NotBlank(message = "Firstname must not be empty")
     @Column(nullable = false)
     private String firstName;
 
@@ -63,26 +67,26 @@ public class Employee {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate sackedDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = ALL, fetch = LAZY)
     @JoinColumn(name = "dept_id")
     private Department department;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToOne(cascade = ALL, mappedBy = "employee")
     private Contact contact;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(fetch = LAZY, cascade = ALL, mappedBy = "employee")
     private List<Dependent> dependents;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(fetch = LAZY, cascade = ALL, mappedBy = "employee")
     private List<Qualification> qualifications;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToOne(cascade = ALL, mappedBy = "employee")
     private Salary salary;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
+    @OneToMany(fetch = LAZY, cascade = ALL, mappedBy = "employee")
     private List<Leave> leave;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "employees", cascade = ALL)
     private List<GuestLog> guestLogs;
 
 

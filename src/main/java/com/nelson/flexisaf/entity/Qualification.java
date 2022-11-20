@@ -10,6 +10,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @AllArgsConstructor
 @Data
@@ -38,7 +40,7 @@ public class Qualification {
     private LocalDate dateIn;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

@@ -1,14 +1,13 @@
 package com.nelson.flexisaf.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Data
@@ -25,12 +24,15 @@ public class GuestLog {
 
     private String description;
 
+    private String visitorName;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToMany(cascade = ALL)
+    @JoinTable(name = "employee_guests", joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "guest_id"))
+    private List<Employee> employees;
 
 
 }

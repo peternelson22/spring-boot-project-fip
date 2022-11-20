@@ -5,11 +5,14 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Setter @Getter @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "roles")
 public class Role {
 
     @Id
@@ -26,7 +29,7 @@ public class Role {
 
     private String roleName;
 
-    @ManyToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "role", cascade = ALL)
     @ToString.Exclude
     private Set<EmployeeUser> employeeUsers;
 

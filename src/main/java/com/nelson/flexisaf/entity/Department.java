@@ -8,11 +8,15 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "departments")
 public class Department {
 
     @Id
@@ -31,10 +35,10 @@ public class Department {
     @Enumerated(EnumType.STRING)
     private DepartmentType name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(fetch = LAZY, mappedBy = "department")
     private List<Employee> employee;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(fetch = LAZY, mappedBy = "department", cascade = ALL)
     private List<Project> projects;
 
 

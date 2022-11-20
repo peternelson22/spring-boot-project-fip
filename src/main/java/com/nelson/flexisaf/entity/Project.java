@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Data
@@ -32,6 +35,7 @@ public class Project {
     )
     private Long id;
 
+    @NotBlank(message = "Project must not be empty")
     private String projectName;
 
     private String description;
@@ -47,7 +51,7 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectStatus projectStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "dept_id")
     private Department department;
 

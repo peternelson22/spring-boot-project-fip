@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -38,7 +41,7 @@ public class PayRoll {
 
     private BigDecimal amount;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
+    @ManyToMany(fetch = EAGER, cascade =  ALL)
     @JoinTable(name = "employee_payroll",
             joinColumns = @JoinColumn(name = "salary_id"),
             inverseJoinColumns = @JoinColumn(name = "payroll_id")
