@@ -125,7 +125,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String getFirstAndLastNameByEmail(String email) {
-        return employeeRepository.getEmployeeFirstNameAndLastNameByEmail(email);
+        Employee employee = employeeRepository.findByEmail(email);
+
+        if (employee == null){
+            throw new ResourceNotFoundException("Employee with " + email + " not found");
+        }
+        String name = employeeRepository.getEmployeeFirstNameAndLastNameByEmail(email);
+        return name.toUpperCase().replace(",", " ");
     }
 
 

@@ -9,4 +9,6 @@ public interface GuestService {
     void saveGuests(Long id, GuestDto guestDto);
 
     List<GuestDto> getGuestLogs(String name);
+
+    void deleteGuestLogs(Long id);
 }

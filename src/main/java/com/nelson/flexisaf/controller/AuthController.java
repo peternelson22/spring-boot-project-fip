@@ -3,12 +3,12 @@ package com.nelson.flexisaf.controller;
 import com.nelson.flexisaf.dto.AuthenticationResponse;
 import com.nelson.flexisaf.dto.LoginRequest;
 import com.nelson.flexisaf.dto.RegisterRequest;
+import com.nelson.flexisaf.entity.EmployeeUser;
 import com.nelson.flexisaf.service.impl.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -27,5 +27,11 @@ public class AuthController {
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
+    }
+
+    @GetMapping("{username}")
+    public ResponseEntity<EmployeeUser> getCurrentUser(@PathVariable String username){
+        return new ResponseEntity<>(authService.getCurrentUser(username), OK);
+
     }
 }

@@ -58,4 +58,12 @@ public class GuestServiceImpl implements GuestService {
         } );
         return list;
     }
+
+    @Override
+    public void deleteGuestLogs(Long id) {
+        GuestLog guestLog = guestRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Logs with " + id + " not found"));
+
+        guestRepository.deleteById(id);
+    }
 }

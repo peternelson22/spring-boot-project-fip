@@ -73,11 +73,11 @@ public class SecurityConfig {
                         .permitAll()
                         .antMatchers(GET, "/contact/details/**")
                         .permitAll()
-                        .antMatchers("/api-docs",
+                        .antMatchers("/v3/api-docs",
                                 "/configuration/ui",
                                 "/swagger-resources/**",
                                 "/configuration/security",
-                                "/swagger-ui.html",
+                                "/swagger-ui/index.html/**",
                                 "/webjars/**")
                         .permitAll()
                         .anyRequest()

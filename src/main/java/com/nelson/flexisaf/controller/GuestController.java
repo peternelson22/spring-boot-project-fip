@@ -10,19 +10,27 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/guests")
 public class GuestController {
 
     private GuestService guestService;
 
-    @PostMapping("/guests/{id}")
+    @PostMapping("{id}")
     public ResponseEntity<String> saveGuests(@PathVariable Long id, @RequestBody GuestDto guestDto){
         guestService.saveGuests(id, guestDto);
         return ResponseEntity.ok("Successful");
     }
 
-    @GetMapping("/guests/{name}")
+    @GetMapping("{name}")
     public ResponseEntity<List<GuestDto>> getGuestLogs(@PathVariable String name){
         return ResponseEntity.ok(guestService.getGuestLogs(name));
+
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteGuestLogs(@PathVariable Long id){
+        guestService.deleteGuestLogs(id);
+        return ResponseEntity.ok("Successfully deleted");
 
     }
 }

@@ -67,7 +67,7 @@ public class AuthService {
     }
 
     @Transactional(readOnly = true)
-    public EmployeeUser getCurrentUser() {
+    public EmployeeUser getCurrentUser(String username) {
         Jwt principal = (Jwt) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getSubject())

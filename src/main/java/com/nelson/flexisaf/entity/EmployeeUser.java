@@ -1,6 +1,8 @@
 package com.nelson.flexisaf.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class EmployeeUser {
 
     @Id

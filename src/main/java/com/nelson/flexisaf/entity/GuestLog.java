@@ -29,7 +29,7 @@ public class GuestLog {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @ManyToMany(cascade = ALL)
+    @ManyToMany(cascade = DETACH)
     @JoinTable(name = "employee_guests", joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "guest_id"))
     private List<Employee> employees;
