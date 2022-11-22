@@ -61,7 +61,7 @@ public class DependentServiceImpl implements DependentService {
             throw new ResourceNotFoundException("No employee found with email " + email);
 
         List<Dependent> dependent = dependentRepository.findAll();
-        dependent.stream().forEach(d -> {
+        dependent.forEach(d -> {
             DependentDto dto = DependentDto.builder()
                     .employeeName(d.getEmployee().getFirstName() + " " + d.getEmployee().getLastName())
                     .name(d.getName())

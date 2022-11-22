@@ -40,23 +40,23 @@ public class AuthService {
     @Transactional
     public void signup(RegisterRequest registerRequest) {
         EmployeeUser user = new EmployeeUser();
-        Role role = new Role();
+        Role roles = new Role();
 
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setCreatedAt(LocalDate.now());
 
-        role.setRoleName("ROLE_USER");
-        user.setRole(Set.of(role));
+        roles.setRoleName("ROLE_USER");
+        user.setRole(Set.of(roles));
 
         userRepository.save(user);
-        roleRepository.save(role);
+        roleRepository.save(roles);
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
-                loginRequest.getPassword()));
+        Authentication authenticate = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authenticate);
         String token = jwtProvider.generateToken(authenticate);
         return AuthenticationResponse.builder()
@@ -68,8 +68,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public EmployeeUser getCurrentUser(String username) {
-        Jwt principal = (Jwt) SecurityContextHolder.
-                getContext().getAuthentication().getPrincipal();
+        Jwt principal = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getSubject())
                 .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getSubject()));
     }}

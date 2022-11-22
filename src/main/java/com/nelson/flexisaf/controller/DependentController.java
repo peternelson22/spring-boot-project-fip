@@ -1,9 +1,6 @@
 package com.nelson.flexisaf.controller;
 
-import com.nelson.flexisaf.dto.ContactDto;
-import com.nelson.flexisaf.dto.DepartmentDto;
 import com.nelson.flexisaf.dto.DependentDto;
-import com.nelson.flexisaf.entity.Contact;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.service.DependentService;
 import lombok.AllArgsConstructor;

@@ -76,16 +76,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(Long id) {
+        boolean exists = employeeRepository.existsById(id);
+        if (!exists){
+            throw new ResourceNotFoundException("There is no employee with id " + id);
+        }
         employeeRepository.deleteById(id);
     }
 
-    //SORTING
+
     @Override
     public List<EmployeeDto> getEmployeeByNameIgnoreCase(String name) {
-        Sort sort = Sort.by(Sort.Direction.ASC, "firstName");
-
         List<EmployeeDto> list = new ArrayList<>();
         List<Employee> employees = employeeRepository.findByFirstNameIgnoreCase(name);
+
+        if (employees.isEmpty()){
+            throw new ResourceNotFoundException("There is no employee with name " + name);
+        }
         employees.forEach(e -> {
             EmployeeDto dto = EmployeeDto.builder()
                     .firstname(e.getFirstName())
@@ -105,9 +111,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDto> getAllEmployees(int pageNumber, int pageSize) {
         List<EmployeeDto> list = new ArrayList<>();
         Pageable pages = PageRequest.of(pageNumber, pageSize, Sort.Direction.ASC, "firstName");
+
         List<Employee> employee = employeeRepository.findAll(pages).getContent();
         employee.forEach(e -> {
-
             EmployeeDto employeeDto = EmployeeDto.builder()
                     .firstname(e.getFirstName())
                     .lastname(e.getLastName())
@@ -117,7 +123,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .departmentTypeName(e.getDepartment().getName())
                     .build();
             list.add(employeeDto);
-
         });
         return list;
     }

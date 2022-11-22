@@ -61,8 +61,10 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public void deleteGuestLogs(Long id) {
-        GuestLog guestLog = guestRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("Logs with " + id + " not found"));
+        boolean exists = guestRepository.existsById(id);
+        if (!exists){
+            throw new ResourceNotFoundException("Log with " + id + " not found");
+        }
 
         guestRepository.deleteById(id);
     }
