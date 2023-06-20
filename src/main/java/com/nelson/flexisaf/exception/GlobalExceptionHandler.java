@@ -1,5 +1,6 @@
 package com.nelson.flexisaf.exception;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         body.put("status", status);
 
         List<String> errors = ex.getBindingResult().getFieldErrors()
-                .stream().map(e -> e.getDefaultMessage())
+                .stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
         body.put("errors", errors);
 
