@@ -4,13 +4,10 @@ import com.nelson.flexisaf.entity.Department;
 import com.nelson.flexisaf.entity.Employee;
 import com.nelson.flexisaf.dto.EmployeeDto;
 import com.nelson.flexisaf.dto.EmployeeProfileDto;
-import com.nelson.flexisaf.entity.Qualification;
-import com.nelson.flexisaf.entity.Qualification.QualificationType;
 import com.nelson.flexisaf.exception.GenericApiException;
 import com.nelson.flexisaf.exception.ResourceNotFoundException;
 import com.nelson.flexisaf.repository.DepartmentRepository;
 import com.nelson.flexisaf.repository.EmployeeRepository;
-import com.nelson.flexisaf.repository.QualificationRepository;
 import com.nelson.flexisaf.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
